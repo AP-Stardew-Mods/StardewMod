@@ -1,4 +1,9 @@
-﻿using StardewModdingAPI;
+﻿using System;
+using Microsoft.Xna.Framework;
+using StardewModdingAPI;
+using StardewModdingAPI.Events;
+using StardewModdingAPI.Utilities;
+using StardewValley;
 
 namespace CentralStorageInterface;
 
@@ -12,6 +17,15 @@ internal class ModEntry : Mod
     public override void Entry(IModHelper helper)
     {
         // TODO: Do stuff
+        helper.Events.Player.InventoryChanged += this.Test;
+    }
+
+    private void Test(object? sender, InventoryChangedEventArgs e)
+    {
+        if (!Context.IsWorldReady)
+            return;
+
+        this.Monitor.Log($"{Game1.player.Name}", LogLevel.Debug);
     }
 
 }
