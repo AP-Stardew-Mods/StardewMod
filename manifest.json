@@ -1,11 +1,9 @@
 {
     "Name": "Central Storage Interface",
-    "Author": "JaWoody",
-    "Version": "1.0.0",
+    "Author": "JaWoody and Varin",
+    "Version": "0.1.0",
+    "MinimumApiVersion": "4.0.0",
     "Description": "This mod adds a new storage interface that can be used to store items in a central location and auto craft.",
-    "UniqueID": "JaWoody.Central Storage Interface",
-    "UpdateKeys": [ "Vortex:???" ],
-    "ContentPackFor": {
-        "UniqueID": "JaWoody.Central Storage Interface"
-    }
+    "UniqueID": "JaWoody.CentralStorageInterface",
+    "UpdateKeys": [ "Vortex:???", "Nexus:???" ]
 }
