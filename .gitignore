@@ -1,0 +1,10 @@
+# User-specific files and folders
+*.suo
+.vscode/
+.vs/
+
+# Build Results
+[Dd]ebug/
+[Bb]in/
+[Oo]bj/
+_releases/
