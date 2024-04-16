@@ -1,0 +1,27 @@
+{
+    "Changes": [
+        {
+            "Action": "EditData",
+            "Target": "Data/Objects",
+            "Entries": {
+                "Jawoody.CentralStorageInterfaceCP_Central_Interface": {
+                    "Name": "Node",
+                    "DisplayName": "{{i18n:objects.node.name}}",
+                    "Description": "{{i18n:objects.node.description}}",
+                    "Price": 250,
+                    "CanBePlacedOutdoors": true,
+                    "CanBePlacedIndoors": true,
+                    "Texture": "Mods\\Jawoody.CentralStorageInterfaceCP\\Node",
+                    "SpriteIndex": 0
+                    }
+
+            }
+        },
+
+        {
+            "Action": "Load",
+            "Target": "Mods/Jawoody.CentralStorageInterfaceCP/Node",
+            "FromFile": "assets/items/BigCraftables/Node.png"
+        }
+    ]
+}

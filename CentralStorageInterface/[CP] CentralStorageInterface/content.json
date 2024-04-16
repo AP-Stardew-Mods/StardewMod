@@ -5,5 +5,11 @@
             "Action": "Include",
             "FromFile": "code/items/BigCraftables.json"
         }
+
+        {
+            "Action": "Include",
+            "FromFile":"code/items/Objects.json"
+
+        }
     ]
 }

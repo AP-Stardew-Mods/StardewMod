@@ -1,4 +1,9 @@
 {
     "big-craftables.central-interface.name": "Central Interface",
-    "big-craftables.central-interface.description": "The main interface for viewing your farm's connected inventory storage."
+    "big-craftables.central-interface.description": "The main interface for viewing your farm's connected inventory storage.",
+    "big-craftables.crafting-interface.name": "Crafting Interface",
+    "big-craftables.crafting-interface.description": "The main interface for crafting.",
+    "objects.node.name": "Node",
+    "objects.node.description": "A node that can be connected to a network."
+    
 }

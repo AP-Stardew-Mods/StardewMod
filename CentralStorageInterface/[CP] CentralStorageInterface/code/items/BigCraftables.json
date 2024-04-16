@@ -13,13 +13,34 @@
                     "CanBePlacedIndoors": true,
                     "Texture": "Mods\\Jawoody.CentralStorageInterfaceCP\\Central Interface",
                     "SpriteIndex": 0
+                },
+
+                "JaWoody.CentralStorageInterfaceCP_Crafting_Interface": {
+                    "Name": "Crafting Interface",
+                    "DisplayName": "{{i18n:big-craftables.crafting-interface.name}}",
+                    "Description": "{{i18n:big-craftables.crafting-interface.description}}",
+                    "Price": 250,
+                    "CanBePlacedOutdoors": true,
+                    "CanBePlacedIndoors": true,
+                    "Texture": "Mods\\Jawoody.CentralStorageInterfaceCP\\Crafting Interface",
+                    "SpriteIndex": 0
                 }
             }
         },
+
+        
         {
             "Action": "Load",
             "Target": "Mods/Jawoody.CentralStorageInterfaceCP/Central Interface",
             "FromFile": "assets/items/BigCraftables/Central Interface.png"
+        },
+
+        {
+            "Action": "Load",
+            "Target": "Mods/Jawoody.CentralStorageInterfaceCP/Crafting Interface",
+            "FromFile": "assets/items/BigCraftables/Crafting Interface.png"
         }
+
+
     ]
 }
