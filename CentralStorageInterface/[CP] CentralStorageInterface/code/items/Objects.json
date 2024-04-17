@@ -14,7 +14,16 @@
                     "CanBePlacedOutdoors": true,
                     "CanBePlacedIndoors": true,
                     "Texture": "Mods\\Jawoody.CentralStorageInterfaceCP\\Node",
-                    "SpriteIndex": 0
+                    "SpriteIndex": 0,
+
+                    "Edibility": 0,
+                    "IsDrink": false,
+                    "GeodeDropsDefaultItems": false,
+                    "GeodeDrops": null,
+                    "ArtifactSpotChances": null,
+                    "ExcludeFromFishingCollection": false,
+                    "ExcludeFromShippingCollection": false,
+                    "ExcludeFromRandomSale": false
                     }
 
             }
