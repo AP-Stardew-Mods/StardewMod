@@ -4,10 +4,12 @@
             "Action": "EditData",
             "Target": "Data/Objects",
             "Entries": {
-                "Jawoody.CentralStorageInterfaceCP_Central_Interface": {
+                "Jawoody.CentralStorageInterfaceCP_Node": {
                     "Name": "Node",
                     "DisplayName": "{{i18n:objects.node.name}}",
                     "Description": "{{i18n:objects.node.description}}",
+                    "Type": "Crafting",
+                    "Category": "-8",
                     "Price": 250,
                     "CanBePlacedOutdoors": true,
                     "CanBePlacedIndoors": true,
