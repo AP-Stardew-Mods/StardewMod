@@ -4,7 +4,7 @@
     "Version": "0.1.0",
     "MinimumApiVersion": "4.0.0",
     "Description": "This mod adds a new storage interface that can be used to store items in a central location and auto craft.",
-    "UniqueID": "JaWoody.CentralStorageInterface",
+    "UniqueID": "JaWoody.CentralStorageInterfaceCP",
     "UpdateKeys": [ "Vortex:???", "Nexus:???" ],
     "ContentPackFor": {
         "UniqueID": "Pathoschild.ContentPatcher"
