@@ -3,9 +3,9 @@
     "Author": "JaWoody",
     "Version": "0.0.1",
     "Description": "This mod adds a new storage interface that can be used to store items in a central location and auto craft.",
-    "UniqueID": "JaWoody.Central Storage Interface",
+    "UniqueID": "JaWoody.CentralStorageInterface",
     "UpdateKeys": [ "Nexus:???" ],
     "ContentPackFor": {
-        "UniqueID": "JaWoody.Central Storage Interface"
+        "UniqueID": "JaWoody.CentralStorageInterface"
     }
 }
