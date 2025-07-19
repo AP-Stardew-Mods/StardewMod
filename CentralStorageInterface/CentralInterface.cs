@@ -14,15 +14,8 @@ namespace CentralStorageInterface
     {
         
 
-        static IModHelper Helper;
-        static IMonitor Monitor;
-
         internal static void Initialize(IMod ModInstance)
         {
-            Helper = ModInstance.Helper;
-            Monitor = ModInstance.Monitor;
-
-            Game1.player.addItemByMenuIfNecessary(new StardewValley.Object(StardewValley.Object.);
             
         }
 
