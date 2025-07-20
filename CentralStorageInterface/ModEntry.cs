@@ -47,7 +47,14 @@ internal sealed class ModEntry : Mod
 	    StardewValley.Object obj = pair.Value;
 
 	    Monitor.Log($"Changed object {obj.Name}");
+
+	    if (obj.name == "Central Interface")
+	    {
+		Interface testobj = new Interface();
+            }
 	}
+
+	
     }
     
 }
