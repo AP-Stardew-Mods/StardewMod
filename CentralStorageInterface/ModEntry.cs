@@ -22,6 +22,8 @@ internal sealed class ModEntry : Mod
         //helper.Events.Content.AssetRequested += this.OnAssetRequested;
         helper.Events.Input.ButtonPressed += this.OnButtonPressed;
 
+	// Helper for object list change. Example placing an object
+	helper.Events.World.ObjectListChanged += ObjectListChanged;
     }
 
 
@@ -35,6 +37,17 @@ internal sealed class ModEntry : Mod
         this.Monitor.Log($"{Game1.player.Name} pressed {e.Button}.", LogLevel.Debug);
     }
 
- 
+    private void ObjectListChanged(object? sender, ObjectListChangedEventArgs e)
+    {
+	Monitor.Log($"Placed object at {e.Location}");
 
+	foreach (var pair in e.Added)
+	{
+	    Vector2 tile = pair.Key;
+	    StardewValley.Object obj = pair.Value;
+
+	    Monitor.Log($"Changed object {obj.Name}");
+	}
+    }
+    
 }
