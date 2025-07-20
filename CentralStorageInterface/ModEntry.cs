@@ -35,6 +35,7 @@ internal sealed class ModEntry : Mod
 
         // Print button presses to console
         this.Monitor.Log($"{Game1.player.Name} pressed {e.Button}.", LogLevel.Debug);
+
     }
 
     private void ObjectListChanged(object? sender, ObjectListChangedEventArgs e)
@@ -50,7 +51,7 @@ internal sealed class ModEntry : Mod
 
 	    if (obj.name == "Central Interface")
 	    {
-		Interface testobj = new Interface();
+		Interface testobj = new Interface(obj.name, tile);
             }
 	}
 
