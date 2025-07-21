@@ -31,7 +31,7 @@ public class Interface : StardewValley.Object
     {
 	Game1.addHUDMessage(new HUDMessage($"Interact"));
     }
-    
 
+    
        
 }

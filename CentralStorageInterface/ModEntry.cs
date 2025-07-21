@@ -43,11 +43,13 @@ internal sealed class ModEntry : Mod
 	    if (IsInterfaceOnTile(tile, out StardewValley.Object terminalObject))
 	    {
 		this.Monitor.Log("Terminal", LogLevel.Debug);
+		OpenInterface();
 	    }
 	}
 
     }
 
+    // Credit: UltimateStorage System
     private bool IsInterfaceOnTile(Vector2 tile, out StardewValley.Object terminalObject)
     {
 	return (Game1.currentLocation.objects.TryGetValue(tile, out terminalObject) && terminalObject.Name == "Central Interface") ||
@@ -55,6 +57,13 @@ internal sealed class ModEntry : Mod
     }
 
 
+    private void OpenInterface()
+    {
+	this.Monitor.Log("Interface Opened", LogLevel.Debug);
+
+	
+    }
+    
     private void ObjectListChanged(object? sender, ObjectListChangedEventArgs e)
     {
 	Monitor.Log($"Placed object at {e.Location}");
