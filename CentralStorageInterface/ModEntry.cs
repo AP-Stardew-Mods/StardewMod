@@ -36,7 +36,24 @@ internal sealed class ModEntry : Mod
         // Print button presses to console
         this.Monitor.Log($"{Game1.player.Name} pressed {e.Button}.", LogLevel.Debug);
 
+	if (e.Button.IsActionButton())
+	{
+	    Vector2 tile = e.Cursor.Tile;
+
+	    if (IsInterfaceOnTile(tile, out StardewValley.Object terminalObject))
+	    {
+		this.Monitor.Log("Terminal", LogLevel.Debug);
+	    }
+	}
+
     }
+
+    private bool IsInterfaceOnTile(Vector2 tile, out StardewValley.Object terminalObject)
+    {
+	return (Game1.currentLocation.objects.TryGetValue(tile, out terminalObject) && terminalObject.Name == "Central Interface") ||
+	    (Game1.currentLocation.objects.TryGetValue(tile + new Vector2(0, 1), out terminalObject) && terminalObject.Name == "Central Interface");
+    }
+
 
     private void ObjectListChanged(object? sender, ObjectListChangedEventArgs e)
     {

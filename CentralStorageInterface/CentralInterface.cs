@@ -16,7 +16,7 @@ namespace CentralStorageInterface
 
         internal static void Initialize(IMod ModInstance)
         {
-            
+	    
         }
 
         public static void spawnItem()
@@ -24,5 +24,6 @@ namespace CentralStorageInterface
             //Item item = new Machine();
             //Game1.player.addItemToInventory(item);
         }
+
     }
 }
