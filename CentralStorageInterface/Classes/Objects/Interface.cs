@@ -6,32 +6,22 @@ using StardewModdingAPI.Utilities;
 using StardewValley;
 using SObject = StardewValley.Object;
 
-namespace CentralStorageInterface;
+namespace CentralStorageInterface.Classes.Objects;
 
 
-public class Interface : StardewValley.Object
+public class Interface
 {
-    // Constants from Chest.cs
-    public const int capacity = 100;
-    protected bool _farmerNearby;
-
+    
     public Interface(String name, Vector2 tile)
     {
-	// BIG CRAFTABLEs
-	this.bigCraftable.Value = true;
-	this.Name = name;
-	this.TileLocation = tile;
-	Game1.addHUDMessage(new HUDMessage($"Interface Created {this.TileLocation.X}"));
     }
 
-    // From Item.cs
-    public override int maximumStackSize() => 1;
 
-    public void interact()
+    public static void OpenInterface(SObject interfaceObject)
     {
-	Game1.addHUDMessage(new HUDMessage($"Interact"));
+	Game1.addHUDMessage(new HUDMessage("Interface Opened"));
     }
-    
 
+    
        
 }

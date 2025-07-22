@@ -4,11 +4,14 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
+using CentralStorageInterface.Classes.Objects;
 
+    
 namespace CentralStorageInterface;
 
 internal sealed class ModEntry : Mod
 {
+
 
        /*********
     ** Public methods
@@ -40,21 +43,26 @@ internal sealed class ModEntry : Mod
 	{
 	    Vector2 tile = e.Cursor.Tile;
 
-	    if (IsInterfaceOnTile(tile, out StardewValley.Object terminalObject))
+	    if (IsInterfaceOnTile(tile, out StardewValley.Object interfaceObject))
 	    {
-		this.Monitor.Log("Terminal", LogLevel.Debug);
+
+		    
+		    this.Monitor.Log("Terminal", LogLevel.Debug);
+		    Interface.OpenInterface(interfaceObject);
 	    }
 	}
 
     }
 
-    private bool IsInterfaceOnTile(Vector2 tile, out StardewValley.Object terminalObject)
+    // Credit: UltimateStorage System
+    private bool IsInterfaceOnTile(Vector2 tile, out StardewValley.Object interfaceObject)
     {
-	return (Game1.currentLocation.objects.TryGetValue(tile, out terminalObject) && terminalObject.Name == "Central Interface") ||
-	    (Game1.currentLocation.objects.TryGetValue(tile + new Vector2(0, 1), out terminalObject) && terminalObject.Name == "Central Interface");
+	return (Game1.currentLocation.objects.TryGetValue(tile, out interfaceObject) && interfaceObject.Name == "Central Interface") ||
+		 (Game1.currentLocation.objects.TryGetValue(tile + new Vector2(0, 1), out interfaceObject) && interfaceObject.Name == "Central Interface");
     }
 
 
+    
     private void ObjectListChanged(object? sender, ObjectListChangedEventArgs e)
     {
 	Monitor.Log($"Placed object at {e.Location}");
