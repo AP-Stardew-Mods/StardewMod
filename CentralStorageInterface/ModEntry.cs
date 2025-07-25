@@ -49,6 +49,9 @@ internal sealed class ModEntry : Mod
 		    
 		    this.Monitor.Log("Terminal", LogLevel.Debug);
 		    Interface.OpenInterface(interfaceObject);
+		    Interface_Menu testMenu = new Interface_Menu(this.Monitor);
+		    Game1.activeClickableMenu = testMenu;
+		    
 	    }
 	}
 
