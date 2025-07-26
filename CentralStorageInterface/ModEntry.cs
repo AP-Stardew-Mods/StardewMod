@@ -4,6 +4,7 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
+using StardewValley.Menus;
 using CentralStorageInterface.Classes.Objects;
 
     
@@ -49,8 +50,14 @@ internal sealed class ModEntry : Mod
 		    
 		    this.Monitor.Log("Terminal", LogLevel.Debug);
 		    Interface.OpenInterface(interfaceObject);
-		    Interface_Menu testMenu = new Interface_Menu(this.Monitor);
+
+
+		    // Test Menu
+		    Vector2 center = Utility.getTopLeftPositionForCenteringOnScreen(800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2);
+		    Interface_Menu testMenu = new Interface_Menu(this.Monitor, (int)center.X, (int)center.Y, 800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2, true);
 		    Game1.activeClickableMenu = testMenu;
+
+		    
 		    
 	    }
 	}
