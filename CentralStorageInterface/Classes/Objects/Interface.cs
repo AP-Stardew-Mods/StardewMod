@@ -11,19 +11,15 @@ namespace CentralStorageInterface.Classes.Objects;
 
 public class Interface
 {
-    
+
     public Interface(String name, Vector2 tile)
     {
-    }
 
+    }
 
     public static void OpenInterface(SObject interfaceObject)
     {
-	Game1.addHUDMessage(new HUDMessage("Interface Opened"));
-
-	
+        Game1.addHUDMessage(new HUDMessage("Interface Opened"));
     }
 
-    
-       
 }
