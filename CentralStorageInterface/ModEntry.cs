@@ -36,7 +36,6 @@ internal sealed class ModEntry : Mod
         // Ignore if player hasn't loaded a save yet
         if (!Context.IsWorldReady)
             return;
-
         // Print button presses to console
         this.Monitor.Log($"{Game1.player.Name} pressed {e.Button}.", LogLevel.Debug);
 
