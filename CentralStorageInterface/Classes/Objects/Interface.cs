@@ -20,6 +20,8 @@ public class Interface
     public static void OpenInterface(SObject interfaceObject)
     {
 	Game1.addHUDMessage(new HUDMessage("Interface Opened"));
+
+	
     }
 
     
