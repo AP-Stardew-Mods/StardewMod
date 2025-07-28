@@ -55,7 +55,7 @@ internal sealed class ModEntry : Mod
             }
 
         }
-
+    }
 
     // Credit: UltimateStorage System
     private bool IsInterfaceOnTile(Vector2 tile, out StardewValley.Object interfaceObject)

@@ -19,6 +19,13 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
 
     public float _updateTimer;
 
+    private InventoryMenu playerInventoryMenu; // Player inventory menu
+    private int containerWidth = 830; // Width of the main container
+    private int containerHeight = 900; // Height of the main container
+    private int computerMenuHeight; // Height of the computer menu
+    private int inventoryMenuWidth; // Width of the inventory menu
+    private int inventoryMenuHeight = 280; // Fixed height for the bottom frame (inventory area)
+
     //public Interface_Menu(IMonitor monitor) : base()
     //{
     //	monitor.Log("Menu Constructed", LogLevel.Debug);
@@ -40,6 +47,13 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
             new Rectangle(564 + Game1.player.trashCanLevel * 18, 102, 18, 26),
             4f
         );
+
+        this.xPositionOnScreen = (Game1.viewport.Width - this.containerWidth) / 2;
+        this.yPositionOnScreen = (Game1.viewport.Height - this.containerHeight) / 2;
+        // Calculate the height of the computer menu.
+        computerMenuHeight = containerHeight - inventoryMenuHeight;
+
+        
     }
 
 
@@ -58,6 +72,10 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
     public override void draw(SpriteBatch b)
     {
         base.draw(b);
+
+
+        //IClickableMenu.drawTextureBox(b, this.xPositionOnScreen, this.yPositionOnScreen, containerWidth, computerMenuHeight, Color.White);
+        b.Draw(Game1.staminaRect, new Rectangle(this.xPositionOnScreen + 12, this.yPositionOnScreen + 12, containerWidth - 24, computerMenuHeight - 24), Color.Red);
         inventory.draw(b);
         trashCan.draw(b);
     }
