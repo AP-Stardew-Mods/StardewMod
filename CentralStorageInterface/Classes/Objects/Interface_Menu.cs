@@ -20,17 +20,17 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
     public float _updateTimer;
 
     private InventoryMenu playerInventoryMenu; // Player inventory menu
-    private int containerWidth = 830; // Width of the main container
-    private int containerHeight = 900; // Height of the main container
-    private int computerMenuHeight; // Height of the computer menu
-    private int inventoryMenuWidth; // Width of the inventory menu
-    private int inventoryMenuHeight = 280; // Fixed height for the bottom frame (inventory area)
 
-    //public Interface_Menu(IMonitor monitor) : base()
-    //{
-    //	monitor.Log("Menu Constructed", LogLevel.Debug);
-    //}
-
+    // Public
+    public int bgPosX;
+    public int bgPosY;
+    public int posX;
+    public int posY;
+    public int bgWidth;
+    public int bgHeight;
+    public int customBoxWidth;
+    public int customBoxHeight;
+   
     public Interface_Menu(IMonitor monitor, int x, int y, int width, int height, bool showUpperRightCloseButton = false) : base()
     {
         monitor.Log("Better Menu Constructed", LogLevel.Debug);
@@ -48,10 +48,19 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
             4f
         );
 
-        this.xPositionOnScreen = (Game1.viewport.Width - this.containerWidth) / 2;
-        this.yPositionOnScreen = (Game1.viewport.Height - this.containerHeight) / 2;
-        // Calculate the height of the computer menu.
-        computerMenuHeight = containerHeight - inventoryMenuHeight;
+        // TODO make these percentages not hardcoded values
+        
+        // Position of Background and Foreground
+        this.bgPosX = 10;
+        this.bgPosY = 10;
+        this.posX = this.bgPosX + 12;
+        this.posY = this.bgPosY + 12;
+
+        // Width and Height of Background and Foreground
+        this.bgWidth = Game1.viewport.Width - 10;
+        this.bgHeight = Game1.viewport.Height - 10;
+        this.customBoxWidth = this.bgWidth - 24;
+        this.customBoxHeight = this.bgHeight - 24;
 
         
     }
@@ -74,8 +83,8 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         base.draw(b);
 
 
-        //IClickableMenu.drawTextureBox(b, this.xPositionOnScreen, this.yPositionOnScreen, containerWidth, computerMenuHeight, Color.White);
-        b.Draw(Game1.staminaRect, new Rectangle(this.xPositionOnScreen + 12, this.yPositionOnScreen + 12, containerWidth - 24, computerMenuHeight - 24), Color.Red);
+        IClickableMenu.drawTextureBox(b, this.bgPosX, this.bgPosY, this.bgWidth, this.bgHeight, Color.White);
+        b.Draw(Game1.staminaRect, new Rectangle(this.posX, this.posY, this.customBoxWidth, this.customBoxHeight), Color.Black);
         inventory.draw(b);
         trashCan.draw(b);
     }

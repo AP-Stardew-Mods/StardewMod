@@ -22,4 +22,6 @@ public class Interface
         Game1.addHUDMessage(new HUDMessage("Interface Opened"));
     }
 
+    
+
 }
