@@ -85,8 +85,60 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
 
         IClickableMenu.drawTextureBox(b, this.bgPosX, this.bgPosY, this.bgWidth, this.bgHeight, Color.White);
         b.Draw(Game1.staminaRect, new Rectangle(this.posX, this.posY, this.customBoxWidth, this.customBoxHeight), Color.Black);
-        inventory.draw(b);
-        trashCan.draw(b);
+        //inventory.draw(b);
+        //trashCan.draw(b);
+        this.drawMouse(b);
+
+        string title = "Bruh";
+
+        float maxTitleWidth = 800f;
+        float rightPadding = 100f;
+
+        float scale = Math.Min(1f, maxTitleWidth / Game1.dialogueFont.MeasureString(title).X);
+
+        Vector2 titlePosition = new Vector2(
+            this.posX + this.bgWidth - rightPadding - maxTitleWidth,
+            this.posY + 40
+        );
+
+        Color titleColor = Color.Orange;
+        Color titleShadowColor = Color.Brown;
+
+        for (int dx = -1; dx <= 1; dx++)
+        {
+            for (int dy = -1; dy <= 1; dy++)
+            {
+                Game1.spriteBatch.DrawString(
+                    Game1.dialogueFont,
+                    title,
+                    titlePosition + new Vector2(dx + 3, dy + 3),
+                    titleShadowColor,
+                    0f,
+                    Vector2.Zero,
+                    scale,
+                    SpriteEffects.None,
+                    0.86f
+                );
+            }
+        }
+
+        for (int dx = -1; dx <= 1; dx++)
+        {
+            for (int dy = -1; dy <= 1; dy++)
+            {
+                Game1.spriteBatch.DrawString(
+                    Game1.dialogueFont,
+                    title,
+                    titlePosition + new Vector2(dx, dy),
+                    titleColor,
+                    0f,
+                    Vector2.Zero,
+                    scale,
+                    SpriteEffects.None,
+                    0.86f
+                );
+            }
+        }
     }
 
 }
