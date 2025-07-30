@@ -103,42 +103,30 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
 
         Color titleColor = Color.Orange;
         Color titleShadowColor = Color.Brown;
+        
+        Game1.spriteBatch.DrawString(
+            Game1.dialogueFont,
+            title,
+            titlePosition + new Vector2(3, 3),
+            titleShadowColor,
+            0f,
+            Vector2.Zero,
+            scale,
+            SpriteEffects.None,
+            0.86f
+        );
 
-        for (int dx = -1; dx <= 1; dx++)
-        {
-            for (int dy = -1; dy <= 1; dy++)
-            {
-                Game1.spriteBatch.DrawString(
-                    Game1.dialogueFont,
-                    title,
-                    titlePosition + new Vector2(dx + 3, dy + 3),
-                    titleShadowColor,
-                    0f,
-                    Vector2.Zero,
-                    scale,
-                    SpriteEffects.None,
-                    0.86f
-                );
-            }
-        }
-
-        for (int dx = -1; dx <= 1; dx++)
-        {
-            for (int dy = -1; dy <= 1; dy++)
-            {
-                Game1.spriteBatch.DrawString(
-                    Game1.dialogueFont,
-                    title,
-                    titlePosition + new Vector2(dx, dy),
-                    titleColor,
-                    0f,
-                    Vector2.Zero,
-                    scale,
-                    SpriteEffects.None,
-                    0.86f
-                );
-            }
-        }
+        Game1.spriteBatch.DrawString(
+            Game1.dialogueFont,
+            title,
+            titlePosition + new Vector2(0, 0),
+            titleColor,
+            0f,
+            Vector2.Zero,
+            scale,
+            SpriteEffects.None,
+            0.86f
+        );
     }
 
 }
