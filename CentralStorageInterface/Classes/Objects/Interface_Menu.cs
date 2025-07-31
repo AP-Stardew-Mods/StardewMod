@@ -84,19 +84,7 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
             4f
         );
         
-        // TODO make these percentages not hardcoded values
         
-        // Position of Background and Foreground
-        this.bgPosX = 10;
-        this.bgPosY = 10;
-        this.posX = this.bgPosX + 12;
-        this.posY = this.bgPosY + 12;
-
-        // Width and Height of Background and Foreground
-        this.bgWidth = Game1.viewport.Width - 100;
-        this.bgHeight = Game1.viewport.Height - 100;
-        this.customBoxWidth = this.bgWidth - 24;
-        this.customBoxHeight = this.bgHeight - 24;
 
         //this.testTexture = Game1.content.Load<Texture2D>("assets/items/BigCraftables/Central Interface.png");
         //this.testTexture = helper.ModContent.Load<Texture2D>("assets/cat.png");
@@ -160,8 +148,10 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         IClickableMenu.drawTextureBox(b, bgClick.x, bgClick.y, bgClick.w, bgClick.h, Color.White);
         b.Draw(Game1.staminaRect, new Rectangle(mid_third_rect.x, mid_third_rect.y, mid_third_rect.w, mid_third_rect.h), Color.Red);
 
+
+       
         // Draw Item Frame //
-        
+        b.Draw(this.itemFrame, new Rectangle(mid_third_rect.x, mid_third_rect.y, 32, 32), Color.White);
         
         // Test Texture Draw //
         //int test_scale = 4;
@@ -178,8 +168,8 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         float scale = Math.Min(1f, maxTitleWidth / Game1.dialogueFont.MeasureString(title).X);
 
         Vector2 titlePosition = new Vector2(
-            this.posX + this.bgWidth - rightPadding - maxTitleWidth,
-            this.posY + 40
+            0 + 0 - rightPadding - maxTitleWidth,
+            0 + 40
         );
 
         
