@@ -91,6 +91,8 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
 
         calculateTextureValues();
 
+        monitor.Log($"{mid_third_rect.w}", LogLevel.Debug);
+ 
         
         // Item Frame Init
         this.itemFrame = helper.ModContent.Load<Texture2D>("assets/menu/item_frame.png");
@@ -129,9 +131,9 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         bgText.h = bgClick.h - 24;
 
         // mid_third_rect
-        mid_third_rect.x = bgText.w / 3;
+        mid_third_rect.x = (bgText.w - ((bgText.w / 2 / 64) * 64)) / 2;
         mid_third_rect.y = bgText.y;
-        mid_third_rect.w = mid_third_rect.x;
+        mid_third_rect.w = (bgText.w / 2 / 64) * 64;;
         mid_third_rect.h = bgText.h;
     }
 
@@ -148,10 +150,13 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         IClickableMenu.drawTextureBox(b, bgClick.x, bgClick.y, bgClick.w, bgClick.h, Color.White);
         b.Draw(Game1.staminaRect, new Rectangle(mid_third_rect.x, mid_third_rect.y, mid_third_rect.w, mid_third_rect.h), Color.Red);
 
-
+        for (int frame = 0; frame <= 8; frame ++)
+        {
+            // Draw Item Frame //
+            b.Draw(this.itemFrame, new Rectangle(mid_third_rect.x + (64 * frame), mid_third_rect.y, 64, 64), Color.White);
+        
+        }
        
-        // Draw Item Frame //
-        b.Draw(this.itemFrame, new Rectangle(mid_third_rect.x, mid_third_rect.y, 32, 32), Color.White);
         
         // Test Texture Draw //
         //int test_scale = 4;
