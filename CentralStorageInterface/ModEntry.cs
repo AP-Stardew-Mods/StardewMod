@@ -11,7 +11,9 @@ using CentralStorageInterface.Classes.Objects;
 namespace CentralStorageInterface;
 
 internal sealed class ModEntry : Mod
+    
 {
+
 
 
     /*********
@@ -21,6 +23,7 @@ internal sealed class ModEntry : Mod
     /// <param name="helper">Provides simplified APIs for writing mods.</param>
     public override void Entry(IModHelper helper)
     {
+
         //helper.Events.Content.AssetRequested += this.OnAssetRequested;
         helper.Events.Input.ButtonPressed += this.OnButtonPressed;
 
@@ -45,7 +48,7 @@ internal sealed class ModEntry : Mod
             {
 
                 this.Monitor.Log("Terminal", LogLevel.Debug);
-                Interface.OpenInterface(interfaceObject, this.Monitor);
+                Interface.OpenInterface(interfaceObject, this.Monitor, this.Helper);
                 
             }
 
