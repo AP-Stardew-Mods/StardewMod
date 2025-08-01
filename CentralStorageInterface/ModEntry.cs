@@ -6,7 +6,7 @@ using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Menus;
 using CentralStorageInterface.Classes.Objects;
-
+using CentralStorageInterface.Classes.Handlers;
 
 namespace CentralStorageInterface;
 
@@ -29,6 +29,8 @@ internal sealed class ModEntry : Mod
 
         // Helper for object list change. Example placing an object
         helper.Events.World.ObjectListChanged += ObjectListChanged;
+
+        
     }
 
 
@@ -49,6 +51,10 @@ internal sealed class ModEntry : Mod
 
                 this.Monitor.Log("Terminal", LogLevel.Debug);
                 Interface.OpenInterface(interfaceObject, this.Monitor, this.Helper);
+
+                // Test Item Handler;
+                Item_Handler itemHandler = new Item_Handler(this.Monitor);
+                
                 
             }
 
@@ -76,6 +82,7 @@ internal sealed class ModEntry : Mod
 
             if (obj.name == "Central Interface")
             {
+                // THIS DOESN'T DO ANYTHING RIGHT NOW
                 Interface testobj = new Interface(obj.name, tile);
             }
         }

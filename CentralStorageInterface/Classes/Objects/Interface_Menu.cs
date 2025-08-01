@@ -65,7 +65,7 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
     public middle_third_rect mid_third_rect;
 
     // Number of Boxes
-    public int tempBoxCount = 75;
+    public int tempBoxCount = 20;
     public int horBoxCount;
     public int vertBoxCount;
 
@@ -93,7 +93,6 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         //this.testTexture = Game1.content.Load<Texture2D>("assets/items/BigCraftables/Central Interface.png");
         //this.testTexture = helper.ModContent.Load<Texture2D>("assets/cat.png");
 
-        calculateTextureValues();
 
         monitor.Log($"{mid_third_rect.w}", LogLevel.Debug);
  
@@ -114,48 +113,25 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         _updateTimer -= (float)time.ElapsedGameTime.TotalSeconds;
     }
 
-    public void calculateTextureValues()
-    {
-        // Alias
-        vX = Game1.viewport.X;
-        vY = Game1.viewport.Y;
-        vW = Game1.viewport.Width;
-        vH = Game1.viewport.Height;
-
-        // bgClick
-        bgClick.x = 0;
-        bgClick.y = 0;
-        bgClick.w = vW;
-        bgClick.h = vH;
-
-        // bgText
-        bgText.x = bgClick.x + 12;
-        bgText.y = bgClick.y + 12;
-        bgText.w = bgClick.w - 24;
-        bgText.h = bgClick.h - 24;
-
-        // mid_third_rect
-        mid_third_rect.x = (bgText.w - ((bgText.w / 2 / 64) * 64)) / 2;
-        mid_third_rect.y = bgText.y;
-        mid_third_rect.w = (bgText.w / 2 / 64) * 64;;
-        mid_third_rect.h = bgText.h;
-
-        // Number of boxes
-        horBoxCount = mid_third_rect.w / 64;
-        vertBoxCount = (int)Math.Ceiling((double)tempBoxCount / horBoxCount);
-    }
 
     public override void draw(SpriteBatch b)
     {
         base.draw(b);
 
+        // Draws every draw count
+        // Can be put in Constructor to only calculate on menu creation instead of update every frame
+        calculateTextureValues();
+
+        
         // Drawing Stuff //
         // https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb196426(v=xnagamestudio.10) //
 
+        // Stardew Default Clickable Brown Texture with border
         IClickableMenu.drawTextureBox(b, bgClick.x, bgClick.y, bgClick.w, bgClick.h, Color.White);
+        // Default XNA Graphics Rectangle
         b.Draw(Game1.staminaRect, new Rectangle(mid_third_rect.x, mid_third_rect.y, mid_third_rect.w, mid_third_rect.h), Color.Red);
 
-        
+        // Drawing an Item frame to fit the Default rectangle
         int hor_scale = 0;
         int vert_scale = 0;
         
@@ -174,16 +150,14 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
             hor_scale += 1;
         }
        
-        
-        // Test Texture Draw //
-        //int test_scale = 4;
-        //b.Draw(this.testTexture, new Rectangle(this.posX, this.posY, this.customBoxWidth, this.customBoxHeight), Color.White);
-        
+        // Draw Mouse
         this.drawMouse(b);
 
         // Remove this later lul
         string title = "Bruh";
 
+
+        // Text Values
         float maxTitleWidth = 800f;
         float rightPadding = 100f;
         
@@ -226,4 +200,41 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         );
     }
 
+
+    //** Function to calculate the relative sizes of all the boxes **//
+    public void calculateTextureValues()
+    {
+        // Alias
+        vX = Game1.viewport.X;
+        vY = Game1.viewport.Y;
+        vW = Game1.viewport.Width;
+        vH = Game1.viewport.Height;
+
+        // bgClick
+        bgClick.x = 0;
+        bgClick.y = 0;
+        bgClick.w = vW;
+        bgClick.h = vH;
+
+        // bgText
+        bgText.x = bgClick.x + 12;
+        bgText.y = bgClick.y + 12;
+        bgText.w = bgClick.w - 24;
+        bgText.h = bgClick.h - 24;
+
+        // mid_third_rect
+        mid_third_rect.x = (bgText.w - ((bgText.w / 2 / 64) * 64)) / 2;
+        mid_third_rect.y = bgText.y;
+        mid_third_rect.w = (bgText.w / 2 / 64) * 64;;
+        mid_third_rect.h = bgText.h;
+
+        // Number of boxes
+        horBoxCount = mid_third_rect.w / 64;
+        vertBoxCount = (int)Math.Ceiling((double)tempBoxCount / horBoxCount);
+    }
+
+
 }
+
+
+
