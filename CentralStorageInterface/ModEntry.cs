@@ -6,12 +6,14 @@ using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Menus;
 using CentralStorageInterface.Classes.Objects;
-
+using CentralStorageInterface.Classes.Handlers;
 
 namespace CentralStorageInterface;
 
 internal sealed class ModEntry : Mod
+    
 {
+
 
 
     /*********
@@ -21,11 +23,14 @@ internal sealed class ModEntry : Mod
     /// <param name="helper">Provides simplified APIs for writing mods.</param>
     public override void Entry(IModHelper helper)
     {
+
         //helper.Events.Content.AssetRequested += this.OnAssetRequested;
         helper.Events.Input.ButtonPressed += this.OnButtonPressed;
 
         // Helper for object list change. Example placing an object
         helper.Events.World.ObjectListChanged += ObjectListChanged;
+
+        
     }
 
 
@@ -45,17 +50,16 @@ internal sealed class ModEntry : Mod
             {
 
                 this.Monitor.Log("Terminal", LogLevel.Debug);
-                Interface.OpenInterface(interfaceObject);
+                Interface.OpenInterface(interfaceObject, this.Monitor, this.Helper);
 
-                // Test Menu
-                Vector2 center = Utility.getTopLeftPositionForCenteringOnScreen(800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2);
-                Interface_Menu testMenu = new Interface_Menu(this.Monitor, (int)center.X, (int)center.Y, 800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2, true);
-                Game1.activeClickableMenu = testMenu;
-
+                // Test Item Handler;
+                Item_Handler itemHandler = new Item_Handler(this.Monitor);
+                
+                
             }
 
         }
-
+    }
 
     // Credit: UltimateStorage System
     private bool IsInterfaceOnTile(Vector2 tile, out StardewValley.Object interfaceObject)
@@ -78,6 +82,7 @@ internal sealed class ModEntry : Mod
 
             if (obj.name == "Central Interface")
             {
+                // THIS DOESN'T DO ANYTHING RIGHT NOW
                 Interface testobj = new Interface(obj.name, tile);
             }
         }
