@@ -129,7 +129,7 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         // Stardew Default Clickable Brown Texture with border
         IClickableMenu.drawTextureBox(b, bgClick.x, bgClick.y, bgClick.w, bgClick.h, Color.White);
         // Default XNA Graphics Rectangle
-        b.Draw(Game1.staminaRect, new Rectangle(mid_third_rect.x, mid_third_rect.y, mid_third_rect.w, mid_third_rect.h), Color.Red);
+        b.Draw(Game1.staminaRect, new Rectangle(mid_third_rect.x, mid_third_rect.y, mid_third_rect.w, mid_third_rect.h), Color.Black);
 
         // Drawing an Item frame to fit the Default rectangle
         int hor_scale = 0;
