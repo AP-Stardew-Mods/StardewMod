@@ -64,6 +64,10 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
 
     public middle_third_rect mid_third_rect;
 
+    // Number of Boxes
+    public int tempBoxCount = 75;
+    public int horBoxCount;
+    public int vertBoxCount;
 
     
     
@@ -135,26 +139,39 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         mid_third_rect.y = bgText.y;
         mid_third_rect.w = (bgText.w / 2 / 64) * 64;;
         mid_third_rect.h = bgText.h;
+
+        // Number of boxes
+        horBoxCount = mid_third_rect.w / 64;
+        vertBoxCount = (int)Math.Ceiling((double)tempBoxCount / horBoxCount);
     }
 
     public override void draw(SpriteBatch b)
     {
         base.draw(b);
 
-        
-        
-        
         // Drawing Stuff //
         // https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb196426(v=xnagamestudio.10) //
 
         IClickableMenu.drawTextureBox(b, bgClick.x, bgClick.y, bgClick.w, bgClick.h, Color.White);
         b.Draw(Game1.staminaRect, new Rectangle(mid_third_rect.x, mid_third_rect.y, mid_third_rect.w, mid_third_rect.h), Color.Red);
 
-        for (int frame = 0; frame <= 8; frame ++)
-        {
-            // Draw Item Frame //
-            b.Draw(this.itemFrame, new Rectangle(mid_third_rect.x + (64 * frame), mid_third_rect.y, 64, 64), Color.White);
         
+        int hor_scale = 0;
+        int vert_scale = 0;
+        
+        for (int frame = 0; frame < tempBoxCount; frame ++)
+        {
+            
+            if ((frame % horBoxCount == 0) && (frame != 0))
+            {
+                hor_scale = 0;
+                vert_scale += 1;
+            }
+            
+            // Draw Item Frame //
+            b.Draw(this.itemFrame, new Rectangle(mid_third_rect.x + (64 * hor_scale), mid_third_rect.y + (64 * vert_scale), 64, 64), Color.White);
+
+            hor_scale += 1;
         }
        
         
