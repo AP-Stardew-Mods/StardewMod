@@ -17,6 +17,8 @@ namespace CentralStorageInterface.Classes.Handlers;
 public class Node_Handler
 {
 
+
+    // Struct to Hold All Node Info
     private struct NodeInfo 
     {
         
@@ -29,18 +31,23 @@ public class Node_Handler
             this.location = location;
         }
 
+        // Outward facing public getters
         public Vector2 TilePosition => Tile;
         public string LocationName => location;
     }
 
+    // Private declaration for the list of nodes
+    // TODO: Figure out how to store this list on save or exit
     private static List<NodeInfo> nodeInfoList = new List<NodeInfo>();
             
-    
+    // Empty constructor because its just a helper function
     public Node_Handler()
     {
 
     }
 
+
+    // MAIN FUNCTION CALLED FROM Mod_Entry on Furniture Changed Event
     public static void addNode(IMonitor monitor, Vector2 tile, String location)
     {
         
@@ -48,6 +55,8 @@ public class Node_Handler
         monitor.Log($"Added {tile}, {location}, to node list");
     }
 
+
+    // MAIN FUNCTION CALLED FROM Mod_Entry on Furniture Changed Event
     public static void removeNode(IMonitor monitor, Vector2 tile, string location)
     {
         // Find the node that matches

@@ -75,13 +75,14 @@ internal sealed class ModEntry : Mod
 
         Monitor.Log($"Placed furniture at {e.Location}");
 
+        // Loop through every furniture objet that was added this frame
         foreach (var obj in e.Added)
         {
             
             StardewValley.Object furniture = obj;
             string locationName = furniture.Location?.NameOrUniqueName ?? e.Location.NameOrUniqueName;
             Vector2 tile = furniture.TileLocation;
-
+            
             Monitor.Log($"Placed object {furniture.Name}");
 
         
