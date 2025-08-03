@@ -15,7 +15,6 @@ internal sealed class ModEntry : Mod
 {
 
 
-
     /*********
      ** Public methods
      *********/
@@ -29,6 +28,8 @@ internal sealed class ModEntry : Mod
 
         // Helper for object list change. Example placing an object
         helper.Events.World.ObjectListChanged += ObjectListChanged;
+
+        helper.Events.World.FurnitureListChanged += FurnitureListChanged;
 
         
     }
@@ -68,6 +69,45 @@ internal sealed class ModEntry : Mod
               (Game1.currentLocation.objects.TryGetValue(tile + new Vector2(0, 1), out interfaceObject) && interfaceObject.Name == "Central Interface");
     }
 
+    private void FurnitureListChanged(object? sender, FurnitureListChangedEventArgs e)
+    {
+
+        Monitor.Log($"Placed furniture at {e.Location}");
+
+        foreach (var obj in e.Added)
+        {
+            
+            StardewValley.Object furniture = obj;
+            string locationName = furniture.Location?.NameOrUniqueName ?? e.Location.NameOrUniqueName;
+            Vector2 tile = furniture.TileLocation;
+
+            Monitor.Log($"Placed object {furniture.Name}");
+
+        
+            if (furniture.Name == "JaWoody.CPCentralStorageInterface_Node")
+            {
+                Node_Handler.addNode(this.Monitor, tile, locationName);
+            }
+        }
+
+
+        foreach (var obj in e.Removed)
+        {
+
+            StardewValley.Object furniture = obj;
+            string locationName = furniture.Location?.NameOrUniqueName ?? e.Location.NameOrUniqueName;
+            Vector2 tile = furniture.TileLocation;
+
+            Monitor.Log($"Removed object {furniture.Name}");
+
+        
+            if (furniture.Name == "JaWoody.CPCentralStorageInterface_Node")
+            {
+                Node_Handler.removeNode(this.Monitor, tile, locationName);
+            }
+        }
+    }
+
         
 
          
@@ -82,6 +122,10 @@ internal sealed class ModEntry : Mod
 
             Monitor.Log($"Changed object {obj.Name}");
 
+
+            
+
+            // THIS DOESNT DO ANYTHING
             if (obj.name == "Central Interface")
             {
                 // THIS DOESN'T DO ANYTHING RIGHT NOW
@@ -89,11 +133,6 @@ internal sealed class ModEntry : Mod
             }
 
 
-            // Change Node properties upon creation
-            if (obj.name == "Node")
-            {
-                
-            }
         }
 
     }
