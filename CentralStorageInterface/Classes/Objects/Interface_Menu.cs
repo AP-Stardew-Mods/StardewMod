@@ -38,31 +38,24 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
     public int vW;
     public int vH;
     
-    // Relative Values //
-
-
-    // BG IClickableMenu //
-    public struct bgClickable {
-        public int x, y, w, h;
-    }
-
-    public bgClickable bgClick;
 
     // BG Texture //
-    public struct bgTexture {
+    public struct customTextureValues {
         public int x, y, w, h;
         public Texture2D texture; 
     }
 
-    public bgTexture bgText;
-    
-    // Middle Third Rectangle 
-    public struct middle_third_rect {
+    public customTextureValues bgText;
+
+    public struct customRectValues {
         public int x, y, w, h;
     }
 
-    public middle_third_rect mid_third_rect;
-
+    public customRectValues l_third_rect;
+    public customRectValues mid_third_rect;
+    public customRectValues bgClick;
+    
+    
     // Number of Boxes
     public int tempBoxCount = 20;
     public int horBoxCount;
@@ -72,6 +65,7 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
     
     public Interface_Menu(IMonitor monitor, IModHelper helper, int x, int y, int width, int height, bool showUpperRightCloseButton = false) : base()
     {
+
         monitor.Log("Better Menu Constructed", LogLevel.Debug);
         inventory = new InventoryMenu(xPositionOnScreen + IClickableMenu.spaceToClearSideBorder + IClickableMenu.borderWidth,
                                       yPositionOnScreen + IClickableMenu.spaceToClearTopBorder + IClickableMenu.borderWidth, playerInventory: true);
@@ -120,9 +114,10 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
 
         // Stardew Default Clickable Brown Texture with border
         IClickableMenu.drawTextureBox(b, bgClick.x, bgClick.y, bgClick.w, bgClick.h, Color.White);
-        // Default XNA Graphics Rectangle
+        // Default XNA Graphics Rectangle Mid
         b.Draw(Game1.staminaRect, new Rectangle(mid_third_rect.x, mid_third_rect.y, mid_third_rect.w, mid_third_rect.h), Color.Black);
-
+        // Default XNA Graphics Rectangle Left
+        b.Draw(Game1.staminaRect, new Rectangle(l_third_rect.x, l_third_rect.y, l_third_rect.w, l_third_rect.h), Color.White);
         // Drawing an Item frame to fit the Default rectangle
         int hor_scale = 0;
         int vert_scale = 0;
@@ -145,44 +140,43 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         // Draw Mouse
         this.drawMouse(b);
 
-        // Remove this later lul
-        string title = "Bruh";
+        // Custom Text
+        drawCustomText("This is a super long message to test the scaling", 0f, Color.Red, Color.Pink, 0, 0, l_third_rect, "center");   
+    }
 
+    public void drawCustomText(String title, float rightPadding, Color titleColor, Color titleShadowColor, int offsetX, int offsetY, customRectValues customRect, String align)
+    {
 
-        // Text Values
-        float maxTitleWidth = 800f;
-        float rightPadding = 100f;
+        float rawLength = Game1.dialogueFont.MeasureString(title).X;
+        //float scale = customRect.w / titleLength;
+        float scale = Math.Min(1f, customRect.w / rawLength);
+        float alignX = 0f;
+        float titleLength = rawLength * scale;
         
-        float scale = Math.Min(1f, maxTitleWidth / Game1.dialogueFont.MeasureString(title).X);
-
+        switch (align)
+        {
+            case "left_align":
+                alignX = 0;
+                break;
+            case "center":
+                alignX = (customRect.w / 2f) - (titleLength / 2f);
+                break;
+            case "right_align":
+                alignX = (customRect.w * .9f) - (titleLength / 2f);
+                break;
+            default:
+                alignX = customRect.w * .1f;
+                break;
+        }
+        
         Vector2 titlePosition = new Vector2(
-            0 + 0 - rightPadding - maxTitleWidth,
-            0 + 40
-        );
-
+            customRect.x + alignX,
+            customRect.y);
         
-        Color titleColor = Color.Orange;
-        Color titleShadowColor = Color.Brown;
-        // ** //
-        
-        
-        // Draw Text Dark Brown Layer
         Game1.spriteBatch.DrawString(
             Game1.dialogueFont,
             title,
-            titlePosition + new Vector2(3, 3),
-            titleShadowColor,
-            0f,
-            Vector2.Zero,
-            scale,
-            SpriteEffects.None,
-            0.86f
-        );
-        // Draw Text Light Brown Layer
-        Game1.spriteBatch.DrawString(
-            Game1.dialogueFont,
-            title,
-            titlePosition + new Vector2(0, 0),
+            titlePosition + new Vector2(offsetX, offsetY),
             titleColor,
             0f,
             Vector2.Zero,
@@ -190,8 +184,8 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
             SpriteEffects.None,
             0.86f
         );
-    }
 
+    }
 
     //** Function to calculate the relative sizes of all the boxes **//
     public void calculateTextureValues()
@@ -213,13 +207,19 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         bgText.y = bgClick.y + 12;
         bgText.w = bgClick.w - 24;
         bgText.h = bgClick.h - 24;
-
+        
         // mid_third_rect
         mid_third_rect.x = (bgText.w - ((bgText.w / 2 / 64) * 64)) / 2;
         mid_third_rect.y = bgText.y;
         mid_third_rect.w = (bgText.w / 2 / 64) * 64;;
         mid_third_rect.h = bgText.h;
-
+        
+        // left_third_rect
+        l_third_rect.x = bgText.x;
+        l_third_rect.y = bgText.y;
+        l_third_rect.w = mid_third_rect.x - bgText.x;
+        l_third_rect.h = bgText.h;
+        
         // Number of boxes
         horBoxCount = mid_third_rect.w / 64;
         vertBoxCount = (int)Math.Ceiling((double)tempBoxCount / horBoxCount);
