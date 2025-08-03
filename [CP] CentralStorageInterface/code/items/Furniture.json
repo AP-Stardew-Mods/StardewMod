@@ -11,7 +11,7 @@
             "Action": "EditData",
             "Target": "Data/Furniture",
             "Entries": {
-                "{{ModId}}_Node": "{{ModId}}_Node/rug/2 2/1 1/1/0/2/{{i18n:objects.node.name}}/0/Mods\\{{ModId}}\\Node"
+                "{{ModId}}_Node": "{{ModId}}_Node/rug/1 1/1 1/1/0/2/{{i18n:objects.node.name}}/0/Mods\\{{ModId}}\\Node"
             }
         }
       ]
