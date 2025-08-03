@@ -31,6 +31,37 @@ internal sealed class ModEntry : Mod
 
         helper.Events.World.FurnitureListChanged += FurnitureListChanged;
 
+        helper.Events.GameLoop.SaveLoaded += SaveLoaded;
+
+        
+    }
+
+    // Only using this to add existing nodes to node list on save loaded
+    private void SaveLoaded(object? sender, SaveLoadedEventArgs e)
+    {
+        foreach (GameLocation location in Game1.locations)
+        {
+            //Monitor.Log($"Bruh {location.Name}");
+            foreach (var furniture in location.furniture)
+            {
+                string locationName = furniture.Location.ToString();
+                Vector2 tile = furniture.TileLocation;
+                string furnitureName = furniture.Name;
+
+                if (locationName == "StardewValley.Locations.FarmHouse")
+                {
+                    this.Monitor.Log($"ONSAVELOAD {locationName} {furnitureName} {tile}");
+                }
+                
+                
+                if (furniture.Name == "JaWoody.CPCentralStorageInterface_Node")
+                {
+                    Node_Handler.addNode(this.Monitor, tile, locationName);
+                }
+                    
+                
+            }
+        }
         
     }
 
@@ -49,14 +80,10 @@ internal sealed class ModEntry : Mod
 
             if (IsInterfaceOnTile(tile, out StardewValley.Object interfaceObject))
             {
-
                 this.Monitor.Log("Terminal", LogLevel.Debug);
                 Interface.OpenInterface(interfaceObject, this.Monitor, this.Helper);
-
                 // Test Item Handler;
-                Item_Handler itemHandler = new Item_Handler(this.Monitor);
-                
-                
+                //Item_Handler itemHandler = new Item_Handler(this.Monitor);
             }
 
         }
@@ -78,7 +105,7 @@ internal sealed class ModEntry : Mod
         {
             
             StardewValley.Object furniture = obj;
-            string locationName = furniture.Location?.NameOrUniqueName ?? e.Location.NameOrUniqueName;
+            string locationName = furniture.Location.ToString();
             Vector2 tile = furniture.TileLocation;
 
             Monitor.Log($"Placed object {furniture.Name}");
@@ -95,7 +122,7 @@ internal sealed class ModEntry : Mod
         {
 
             StardewValley.Object furniture = obj;
-            string locationName = furniture.Location?.NameOrUniqueName ?? e.Location.NameOrUniqueName;
+            string locationName = furniture.Location.ToString();
             Vector2 tile = furniture.TileLocation;
 
             Monitor.Log($"Removed object {furniture.Name}");
