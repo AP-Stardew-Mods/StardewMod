@@ -17,7 +17,7 @@ namespace CentralStorageInterface.Classes.Handlers;
 public class Item_Handler
 {
 
-    private readonly List<Chest> chests;
+    //private readonly List<Chest> chests;
 
     // Temp Location need to pass this in later
     private GameLocation location = Game1.currentLocation;

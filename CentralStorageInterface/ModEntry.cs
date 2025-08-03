@@ -10,6 +10,7 @@ using CentralStorageInterface.Classes.Handlers;
 
 namespace CentralStorageInterface;
 
+
 internal sealed class ModEntry : Mod
     
 {
@@ -44,14 +45,14 @@ internal sealed class ModEntry : Mod
             //Monitor.Log($"Bruh {location.Name}");
             foreach (var furniture in location.furniture)
             {
-                string locationName = furniture.Location.ToString();
+                string? locationName = furniture.Location.ToString();
                 Vector2 tile = furniture.TileLocation;
                 string furnitureName = furniture.Name;
 
-                if (locationName == "StardewValley.Locations.FarmHouse")
-                {
-                    this.Monitor.Log($"ONSAVELOAD {locationName} {furnitureName} {tile}");
-                }
+                // if (locationName == "StardewValley.Locations.FarmHouse")
+                // {
+                //     this.Monitor.Log($"ONSAVELOAD {locationName} {furnitureName} {tile}");
+                // }
                 
                 
                 if (furniture.Name == "JaWoody.CPCentralStorageInterface_Node")
@@ -105,10 +106,9 @@ internal sealed class ModEntry : Mod
         {
             
             StardewValley.Object furniture = obj;
-            string locationName = furniture.Location.ToString();
+            string? locationName = furniture.Location.ToString();
             Vector2 tile = furniture.TileLocation;
 
-            Monitor.Log($"Placed object {furniture.Name}");
 
         
             if (furniture.Name == "JaWoody.CPCentralStorageInterface_Node")
@@ -122,10 +122,8 @@ internal sealed class ModEntry : Mod
         {
 
             StardewValley.Object furniture = obj;
-            string locationName = furniture.Location.ToString();
+            string? locationName = furniture.Location.ToString();
             Vector2 tile = furniture.TileLocation;
-
-            Monitor.Log($"Removed object {furniture.Name}");
 
         
             if (furniture.Name == "JaWoody.CPCentralStorageInterface_Node")

@@ -19,7 +19,7 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
 
     public float _updateTimer;
 
-    private InventoryMenu playerInventoryMenu; // Player inventory menu
+    //private InventoryMenu? playerInventoryMenu; 
 
     // Public
     public int bgPosX;
@@ -30,7 +30,6 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
     public int bgHeight;
     public int customBoxWidth;
     public int customBoxHeight;
-    public Texture2D testTexture; 
     public Texture2D itemFrame;
 
     // Alias
@@ -88,15 +87,8 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
             4f
         );
         
-        
-
-        //this.testTexture = Game1.content.Load<Texture2D>("assets/items/BigCraftables/Central Interface.png");
-        //this.testTexture = helper.ModContent.Load<Texture2D>("assets/cat.png");
-
-
         monitor.Log($"{mid_third_rect.w}", LogLevel.Debug);
  
-        
         // Item Frame Init
         this.itemFrame = helper.ModContent.Load<Texture2D>("assets/menu/item_frame.png");
     }
