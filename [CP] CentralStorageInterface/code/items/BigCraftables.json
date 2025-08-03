@@ -25,6 +25,11 @@
                     "Texture": "Mods\\Jawoody.CentralStorageInterfaceCP\\Crafting Interface",
                     "SpriteIndex": 0
                 }
+
+                
+
+            
+        
             }
         },
 
@@ -40,6 +45,8 @@
             "Target": "Mods/Jawoody.CentralStorageInterfaceCP/Crafting Interface",
             "FromFile": "assets/items/BigCraftables/Crafting Interface.png"
         }
+
+        
 
 
     ]

@@ -68,7 +68,9 @@ internal sealed class ModEntry : Mod
               (Game1.currentLocation.objects.TryGetValue(tile + new Vector2(0, 1), out interfaceObject) && interfaceObject.Name == "Central Interface");
     }
 
+        
 
+         
     private void ObjectListChanged(object? sender, ObjectListChangedEventArgs e)
     {
         Monitor.Log($"Placed object at {e.Location}");
@@ -84,6 +86,13 @@ internal sealed class ModEntry : Mod
             {
                 // THIS DOESN'T DO ANYTHING RIGHT NOW
                 Interface testobj = new Interface(obj.name, tile);
+            }
+
+
+            // Change Node properties upon creation
+            if (obj.name == "Node")
+            {
+                
             }
         }
 
