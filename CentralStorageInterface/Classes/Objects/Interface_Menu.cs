@@ -142,11 +142,33 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         this.drawMouse(b);
 
         // Custom Text
-        drawCustomText("This is a super long message to test the scaling", 0f, Color.Red, Color.Pink, 0, 0, l_third_rect, "center");
+        //drawCustomText("This is a super long message to test the scaling", 0f, Color.Red, Color.Pink, 0, 0, l_third_rect, "center");
 
         // Drawing number of nodes
         drawCustomText($"Number of Nodes {Node_Handler.getNumNodes()}", 0f, Color.Red, Color.Pink, 0, 0, l_third_rect, "center");
-        
+
+        // Draw node info
+        drawNodeRows();
+    }
+
+    public void drawNodeRows()
+    {
+        int numNodes = Node_Handler.getNumNodes();
+
+        for (int i = 0; i <= numNodes - 1; i++)
+        {
+            String title = $"Node {i} ...... {Node_Handler.getNodeInfo()[i].TilePosition}";
+            float rightPadding = 0f;
+            Color color = Color.Blue;
+            Color shadowColor = Color.Blue;
+            int offsetX = 0;
+            int offsetY = (50 * i) + 50;
+            customRectValues customRect = l_third_rect;
+            String align = "left_align"
+            
+            drawCustomText(title, rightPadding, color, shadowColor, offsetX, offsetY, customRect, align);
+        }
+
     }
 
 

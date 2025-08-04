@@ -17,7 +17,7 @@ namespace CentralStorageInterface.Classes.Handlers;
 public class Node_Handler
 {
 
-    private struct NodeInfo 
+    public struct NodeInfo 
     {
         
         private Vector2 Tile;
@@ -74,6 +74,9 @@ public class Node_Handler
         return numNodes;
     }
 
-
+    public static List<NodeInfo> getNodeInfo()
+    {
+        return nodeInfoList;
+    }   
     
 }
