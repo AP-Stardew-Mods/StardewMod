@@ -7,7 +7,7 @@ using StardewModdingAPI.Utilities;
 using StardewValley;
 using StardewValley.Menus;
 using SObject = StardewValley.Object;
-
+using CentralStorageInterface.Classes.Handlers;
 
 namespace CentralStorageInterface.Classes.Objects;
 
@@ -65,6 +65,7 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
     
     public Interface_Menu(IMonitor monitor, IModHelper helper, int x, int y, int width, int height, bool showUpperRightCloseButton = false) : base()
     {
+
 
         monitor.Log("Better Menu Constructed", LogLevel.Debug);
         inventory = new InventoryMenu(xPositionOnScreen + IClickableMenu.spaceToClearSideBorder + IClickableMenu.borderWidth,
@@ -141,8 +142,15 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         this.drawMouse(b);
 
         // Custom Text
-        drawCustomText("This is a super long message to test the scaling", 0f, Color.Red, Color.Pink, 0, 0, l_third_rect, "center");   
+        drawCustomText("This is a super long message to test the scaling", 0f, Color.Red, Color.Pink, 0, 0, l_third_rect, "center");
+
+        // Drawing number of nodes
+        drawCustomText($"Number of Nodes {Node_Handler.getNumNodes()}", 0f, Color.Red, Color.Pink, 0, 0, l_third_rect, "center");
+        
     }
+
+
+    
 
     public void drawCustomText(String title, float rightPadding, Color titleColor, Color titleShadowColor, int offsetX, int offsetY, customRectValues customRect, String align)
     {

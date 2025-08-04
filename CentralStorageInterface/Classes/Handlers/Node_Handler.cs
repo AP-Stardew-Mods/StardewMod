@@ -34,11 +34,11 @@ public class Node_Handler
     }
 
     private static List<NodeInfo> nodeInfoList = new List<NodeInfo>();
-            
+    public static int numNodes;
     
     public Node_Handler()
     {
-
+        
     }
 
     public static void addNode(IMonitor monitor, Vector2 tile, String location)
@@ -46,6 +46,7 @@ public class Node_Handler
         
         nodeInfoList.Add(new NodeInfo(tile, location));
         monitor.Log($"Added {tile}, {location}, to node list");
+        numNodes += 1;
     }
 
     public static void removeNode(IMonitor monitor, Vector2 tile, string location)
@@ -57,13 +58,21 @@ public class Node_Handler
         {
             nodeInfoList.Remove(match);
             monitor.Log($"Removed Node at {tile} in {location} from node list.");
+            numNodes -= 1;
         }
         else
         {
             monitor.Log($"No matching Node found at {tile} in {location} to remove.", LogLevel.Warn);
         }
+
+        
     }
+
     
+    public static int getNumNodes()
+    {
+        return numNodes;
+    }
 
 
     
