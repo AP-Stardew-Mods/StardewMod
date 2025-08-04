@@ -164,7 +164,7 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
             int offsetX = 0;
             int offsetY = (50 * i) + 50;
             customRectValues customRect = l_third_rect;
-            String align = "left_align"
+            String align = "left_align";
             
             drawCustomText(title, rightPadding, color, shadowColor, offsetX, offsetY, customRect, align);
         }
