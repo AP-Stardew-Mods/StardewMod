@@ -10,6 +10,11 @@
             "Action": "Include",
             "FromFile":"code/items/Furniture.json"
 
+        },
+
+        {
+            "Action": "Include",
+            "FromFile":"code/items/Objects.json"
         }
     ]
 }
