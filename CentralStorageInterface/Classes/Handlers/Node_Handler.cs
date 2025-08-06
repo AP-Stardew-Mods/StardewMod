@@ -16,21 +16,19 @@ namespace CentralStorageInterface.Classes.Handlers;
 
 public class Node_Handler
 {
-
-    public struct NodeInfo 
+    [Serializable]
+    public struct NodeInfo
     {
-        
-        private Vector2 Tile;
-        private String location;
+        public int Tile_x { get; set; }
+        public int Tile_y { get; set; }
+        public string LocationName { get; set; }
 
-        public NodeInfo(Vector2 tile, String location)
+        public NodeInfo(Vector2 tile, string location)
         {
-            Tile = tile;
-            this.location = location;
+            Tile_x = (int)tile.X;
+            Tile_y = (int)tile.Y;
+            LocationName = location;
         }
-
-        public Vector2 TilePosition => Tile;
-        public string LocationName => location;
     }
 
     private static List<NodeInfo> nodeInfoList = new List<NodeInfo>();
@@ -52,9 +50,9 @@ public class Node_Handler
     public static void removeNode(IMonitor monitor, Vector2 tile, string location)
     {
         // Find the node that matches
-        var match = nodeInfoList.FirstOrDefault(n => n.TilePosition == tile && n.LocationName == location);
+        var match = nodeInfoList.FirstOrDefault(n => n.Tile_x == tile.X && n.Tile_y == tile.Y && n.LocationName == location);
 
-        if (match.TilePosition != default && match.LocationName != null)
+        if (match.Tile_x != default && match.Tile_y != default && match.LocationName != null)
         {
             nodeInfoList.Remove(match);
             monitor.Log($"Removed Node at {tile} in {location} from node list.");
@@ -78,5 +76,11 @@ public class Node_Handler
     {
         return nodeInfoList;
     }   
-    
+
+    public static void setNodeInfo(List<NodeInfo> loadedNodes)
+    {
+        nodeInfoList.Clear();
+        nodeInfoList = loadedNodes ?? new List<NodeInfo>();
+        numNodes = nodeInfoList.Count;
+    }
 }

@@ -157,7 +157,7 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
 
         for (int i = 0; i <= numNodes - 1; i++)
         {
-            String title = $"Node {i} ...... {Node_Handler.getNodeInfo()[i].TilePosition}";
+            String title = $"Node {i} ...... {Node_Handler.getNodeInfo()[i].Tile_x}";
             float rightPadding = 0f;
             Color color = Color.Blue;
             Color shadowColor = Color.Blue;
