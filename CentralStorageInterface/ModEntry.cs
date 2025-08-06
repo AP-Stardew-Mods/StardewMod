@@ -8,6 +8,9 @@ using StardewValley.Menus;
 using CentralStorageInterface.Classes.Objects;
 using CentralStorageInterface.Classes.Handlers;
 
+// For serializable info
+using System.Text.Json;
+
 namespace CentralStorageInterface;
 
 
@@ -34,12 +37,35 @@ internal sealed class ModEntry : Mod
 
         helper.Events.GameLoop.SaveLoaded += SaveLoaded;
 
-        
+        helper.Events.GameLoop.Saving += Saving;
     }
 
+    private void Saving(object? sender, SavingEventArgs e)
+    {
+        // Serialize
+        string json = JsonSerializer.Serialize(Node_Handler.getNodeInfo());
+        this.Monitor.Log($"{json}");
+        File.WriteAllText("node_list.json", json);
+        
+    }
+    
+    
     // Only using this to add existing nodes to node list on save loaded
     private void SaveLoaded(object? sender, SaveLoadedEventArgs e)
     {
+
+        string json = File.ReadAllText("node_list.json");
+
+        this.Monitor.Log($"{json}");
+        List<Node_Handler.NodeInfo>? loadedNodes = JsonSerializer.Deserialize<List<Node_Handler.NodeInfo>>(json);
+
+        foreach (var node in loadedNodes)
+        {
+            this.Monitor.Log($"Loaded NODES: {node.Tile_x} {node.Tile_y} {node.LocationName}");
+        }
+        
+        Node_Handler.setNodeInfo(loadedNodes);
+        
         foreach (GameLocation location in Game1.locations)
         {
             //Monitor.Log($"Bruh {location.Name}");
@@ -49,15 +75,11 @@ internal sealed class ModEntry : Mod
                 Vector2 tile = furniture.TileLocation;
                 string furnitureName = furniture.Name;
 
-                // if (locationName == "StardewValley.Locations.FarmHouse")
-                // {
-                //     this.Monitor.Log($"ONSAVELOAD {locationName} {furnitureName} {tile}");
-                // }
                 
                 
                 if (furniture.Name == "JaWoody.CPCentralStorageInterface_Node")
                 {
-                    Node_Handler.addNode(this.Monitor, tile, locationName);
+                    //Node_Handler.addNode(this.Monitor, tile, locationName);
                 }
                     
                 
