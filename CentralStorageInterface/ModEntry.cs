@@ -38,8 +38,33 @@ internal sealed class ModEntry : Mod
         helper.Events.GameLoop.SaveLoaded += SaveLoaded;
 
         helper.Events.GameLoop.Saving += Saving;
+
+        helper.Events.Player.InventoryChanged += InventoryChanged;
     }
 
+    private void InventoryChanged(object? sender, InventoryChangedEventArgs e)
+    {
+        foreach (var obj in e.Added)
+        {
+            
+            Monitor.Log($"Inventory added {obj.Name}");
+            if (obj.Name == "Hard Drive")
+            {
+                // write a custom value
+                obj.modData[$"{this.ModManifest.UniqueID}/hard-drive-size"] = "99";
+                // read it
+                if (obj.modData.TryGetValue($"{this.ModManifest.UniqueID}/hard-drive-size", out string hardDriveSizeRaw))
+                {
+                    this.Monitor.Log($"{hardDriveSizeRaw}");
+                }
+
+            }
+
+
+        }
+
+    }
+    
     private void Saving(object? sender, SavingEventArgs e)
     {
         // Serialize
@@ -59,33 +84,38 @@ internal sealed class ModEntry : Mod
         this.Monitor.Log($"{json}");
         List<Node_Handler.NodeInfo>? loadedNodes = JsonSerializer.Deserialize<List<Node_Handler.NodeInfo>>(json);
 
-        foreach (var node in loadedNodes)
+        if (loadedNodes != null)
         {
-            this.Monitor.Log($"Loaded NODES: {node.Tile_x} {node.Tile_y} {node.LocationName}");
-        }
-        
-        Node_Handler.setNodeInfo(loadedNodes);
-        
-        foreach (GameLocation location in Game1.locations)
-        {
-            //Monitor.Log($"Bruh {location.Name}");
-            foreach (var furniture in location.furniture)
+            foreach (var node in loadedNodes)
             {
-                string? locationName = furniture.Location.ToString();
-                Vector2 tile = furniture.TileLocation;
-                string furnitureName = furniture.Name;
+                this.Monitor.Log($"Loaded NODES: {node.Tile_x} {node.Tile_y} {node.LocationName}");
+            }
+        
+            Node_Handler.setNodeInfo(loadedNodes);
+        
+            // foreach (GameLocation location in Game1.locations)
+            // {
+            //     //Monitor.Log($"Bruh {location.Name}");
+            //     foreach (var furniture in location.furniture)
+            //     {
+            //         string? locationName = furniture.Location.ToString();
+            //         Vector2 tile = furniture.TileLocation;
+            //         string furnitureName = furniture.Name;
 
                 
                 
-                if (furniture.Name == "JaWoody.CPCentralStorageInterface_Node")
-                {
-                    //Node_Handler.addNode(this.Monitor, tile, locationName);
-                }
+            //         if (furniture.Name == "JaWoody.CPCentralStorageInterface_Node")
+            //         {
+            //             //Node_Handler.addNode(this.Monitor, tile, locationName);
+            //         }
                     
                 
-            }
+            //     }
+            // }
+        
         }
         
+                
     }
 
 
