@@ -24,9 +24,7 @@ public class Interface
         Interface_Menu testMenu = new Interface_Menu(monitor, helper, (int)center.X, (int)center.Y, 800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2, true);
         Game1.activeClickableMenu = testMenu;
 
-        Game1.addHUDMessage(new HUDMessage("Interface Opened"));
     }
-
     
 
 }

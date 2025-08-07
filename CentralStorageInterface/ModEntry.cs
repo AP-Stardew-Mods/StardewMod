@@ -67,11 +67,9 @@ internal sealed class ModEntry : Mod
     
     private void Saving(object? sender, SavingEventArgs e)
     {
-        // Serialize
-        string json = JsonSerializer.Serialize(Node_Handler.getNodeInfo());
-        this.Monitor.Log($"{json}");
-        File.WriteAllText("node_list.json", json);
-        
+        // Serialize Node Info
+        string nodeJson = JsonSerializer.Serialize(Node_Handler.getNodeInfo());
+        File.WriteAllText("node_list.json", nodeJson);
     }
     
     
@@ -135,8 +133,10 @@ internal sealed class ModEntry : Mod
             {
                 this.Monitor.Log("Terminal", LogLevel.Debug);
                 Interface.OpenInterface(interfaceObject, this.Monitor, this.Helper);
-                // Test Item Handler;
-                //Item_Handler itemHandler = new Item_Handler(this.Monitor);
+            } else if (IsDriveBayOnTile(tile, out StardewValley.Object driveBayObject))
+            {
+                this.Monitor.Log("Terminal", LogLevel.Debug);
+                Drive_Bay.OpenInterface(interfaceObject, this.Monitor, this.Helper);
             }
 
         }
@@ -149,6 +149,12 @@ internal sealed class ModEntry : Mod
               (Game1.currentLocation.objects.TryGetValue(tile + new Vector2(0, 1), out interfaceObject) && interfaceObject.Name == "Central Interface");
     }
 
+    private bool IsDriveBayOnTile(Vector2 tile, out StardewValley.Object driveBayObject)
+    {
+        return (Game1.currentLocation.objects.TryGetValue(tile, out driveBayObject) && driveBayObject.Name == "Drive Bay") ||
+              (Game1.currentLocation.objects.TryGetValue(tile + new Vector2(0, 1), out driveBayObject) && driveBayObject.Name == "Drive Bay");
+    }
+    
     private void FurnitureListChanged(object? sender, FurnitureListChangedEventArgs e)
     {
 
