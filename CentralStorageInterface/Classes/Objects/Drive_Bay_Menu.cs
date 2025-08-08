@@ -19,6 +19,9 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
     private ClickableTextureComponent upArrow;
     private ClickableTextureComponent downArrow;
 
+    private ClickableTextureComponent basicUpArrow;
+    private ClickableTextureComponent basicDownArrow;
+    
     public float _updateTimer;
 
     //private InventoryMenu? playerInventoryMenu; 
@@ -51,10 +54,12 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
 
     public struct customRectValues {
         public int x, y, w, h;
+        public String textTitle;
     }
 
-    public customRectValues l_third_rect;
-    public customRectValues mid_third_rect;
+    public customRectValues basic_third_rect;
+    public customRectValues rare_third_rect;
+    public customRectValues legendary_third_rect;
     public customRectValues bgClick;
     
     
@@ -63,10 +68,15 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
     public int horBoxCount;
     public int vertBoxCount;
 
-    
+
     
     public Drive_Bay_Menu(IMonitor monitor, IModHelper helper, int x, int y, int width, int height, bool showUpperRightCloseButton = false) : base()
     {
+
+        // On Creation Default Values
+        basic_third_rect.textTitle = $"Basic Drive Bays: {Drive_Bay.numBasic}";
+        rare_third_rect.textTitle = $"Rare Drive Bays: {Drive_Bay.numRare}";
+        legendary_third_rect.textTitle = $"Legendary Drive Bays: {Drive_Bay.numLegendary}";
 
 
         monitor.Log("Better Menu Constructed", LogLevel.Debug);
@@ -83,14 +93,17 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
             new Rectangle(564 + Game1.player.trashCanLevel * 18, 102, 18, 26),
             4f
         );
+
+        // Draws every draw count
+        // Can be put in Constructor to only calculate on menu creation instead of update every frame
+        calculateTextureValues();
+
         
-        monitor.Log($"{mid_third_rect.w}", LogLevel.Debug);
- 
         // Item Frame Init
         this.itemFrame = helper.ModContent.Load<Texture2D>("assets/menu/item_frame.png");
 
-        this.upArrow = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen + width + 16, this.yPositionOnScreen + 64, 44, 48), Game1.mouseCursors, new Rectangle(421, 459, 11, 12), 4f);
-      this.downArrow = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen + width + 16, this.yPositionOnScreen + height - 64, 44, 48), Game1.mouseCursors, new Rectangle(421, 472, 11, 12), 4f);
+        basicUpArrow = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen, 44, 48), Game1.mouseCursors, new Rectangle(421, 459, 11, 12), 4f);
+        basicDownArrow = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen + width + 16, this.yPositionOnScreen + height - 64, 44, 48), Game1.mouseCursors, new Rectangle(421, 472, 11, 12), 4f);
     }
 
 
@@ -110,9 +123,6 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
     {
         base.draw(b);
 
-        // Draws every draw count
-        // Can be put in Constructor to only calculate on menu creation instead of update every frame
-        calculateTextureValues();
 
         
         // Drawing Stuff //
@@ -120,18 +130,27 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
 
         // Stardew Default Clickable Brown Texture with border
         IClickableMenu.drawTextureBox(b, bgClick.x, bgClick.y, bgClick.w, bgClick.h, Color.White);
-        // Default XNA Graphics Rectangle Mid
-        //b.Draw(Game1.staminaRect, new Rectangle(mid_third_rect.x, mid_third_rect.y, mid_third_rect.w, mid_third_rect.h), Color.Black);
-        // Default XNA Graphics Rectangle Left
-        //b.Draw(Game1.staminaRect, new Rectangle(l_third_rect.x, l_third_rect.y, l_third_rect.w, l_third_rect.h), Color.White);
+        // Default XNA Graphics Rectangle Basic
+        b.Draw(Game1.staminaRect, new Rectangle(basic_third_rect.x, basic_third_rect.y, basic_third_rect.w, basic_third_rect.h), Color.Black);
+        // Default XNA Graphics Rectangle Rare
+        b.Draw(Game1.staminaRect, new Rectangle(rare_third_rect.x, rare_third_rect.y, rare_third_rect.w, rare_third_rect.h), Color.White);
+
+        b.Draw(Game1.staminaRect, new Rectangle(legendary_third_rect.x, legendary_third_rect.y, legendary_third_rect.w, legendary_third_rect.h), Color.Red);
         // Drawing an Item frame to fit the Default rectangle
         int hor_scale = 0;
         int vert_scale = 0;
 
-        this.upArrow.draw(b);
-        this.downArrow.draw(b);
+        //basicUpArrow.draw(b);
+        //basicDownArrow.draw(b);
 
-        
+        // Custom text in boxes
+        // Text for Basic Hard Drives
+        drawCustomText(basic_third_rect.textTitle, 0f, Color.Blue, Color.Blue, 0, 0, basic_third_rect, "left_align");
+        // Text for Rare Hard Drives
+        drawCustomText(rare_third_rect.textTitle, 0f, Color.Blue, Color.Blue, 0, 0, rare_third_rect, "left_align");
+        // Text for Legendary Hard Drives
+        drawCustomText(legendary_third_rect.textTitle, 0f, Color.Blue, Color.Blue, 0, 0, legendary_third_rect, "left_align");
+
         // Draw Mouse
         this.drawMouse(b);
 
@@ -202,21 +221,26 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
         bgText.w = bgClick.w - 24;
         bgText.h = bgClick.h - 24;
         
-        // mid_third_rect
-        mid_third_rect.x = (bgText.w - ((bgText.w / 2 / 64) * 64)) / 2;
-        mid_third_rect.y = bgText.y;
-        mid_third_rect.w = (bgText.w / 2 / 64) * 64;;
-        mid_third_rect.h = bgText.h;
+        // basic_third_rect
+        basic_third_rect.x = bgText.x;
+        basic_third_rect.y = bgText.y;
+        basic_third_rect.w = bgText.w;
+        basic_third_rect.h = (int)(bgText.h * .3);
+
+        // basic up arrow
         
-        // left_third_rect
-        l_third_rect.x = bgText.x;
-        l_third_rect.y = bgText.y;
-        l_third_rect.w = mid_third_rect.x - bgText.x;
-        l_third_rect.h = bgText.h;
         
-        // Number of boxes
-        //horBoxCount = mid_third_rect.w / 64;
-        //vertBoxCount = (int)Math.Ceiling((double)tempBoxCount / horBoxCount);
+        // rare_third_rect
+        rare_third_rect.x = bgText.x;
+        rare_third_rect.y = basic_third_rect.y + basic_third_rect.h;
+        rare_third_rect.w = bgText.w;
+        rare_third_rect.h = basic_third_rect.h;
+                
+        // legendary_third_rect
+        legendary_third_rect.x = bgText.x;
+        legendary_third_rect.y = rare_third_rect.y + rare_third_rect.h;
+        legendary_third_rect.w = bgText.w;
+        legendary_third_rect.h = basic_third_rect.h;
     }
 
 

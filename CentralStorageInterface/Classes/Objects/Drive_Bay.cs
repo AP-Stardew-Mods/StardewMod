@@ -14,8 +14,12 @@ public class Drive_Bay
 {
 
     public static int storageSpace { get; set; } = 10; //DEFAULT
+    public static int numBasic { get; set; } = 0; //DEFAULT
+    public static int numRare { get; set; } = 0; //DEFAULT
+    public static int numLegendary { get; set; } = 0; //DEFAULT
 
-   
+
+
     public static void OpenInterface(SObject interfaceObject, IMonitor monitor, IModHelper helper)
     {
         Vector2 center = Utility.getTopLeftPositionForCenteringOnScreen(800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2);
