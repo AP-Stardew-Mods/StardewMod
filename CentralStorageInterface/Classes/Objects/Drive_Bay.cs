@@ -28,6 +28,10 @@ public class Drive_Bay
 
         Game1.addHUDMessage(new HUDMessage($"Drive Bay Opened: Storage {storageSpace}"));
     }
-    
+
+    public static void DropInItem(Item dropInItem, bool probe, Farmer who)
+    {
+
+    }
 
 }
