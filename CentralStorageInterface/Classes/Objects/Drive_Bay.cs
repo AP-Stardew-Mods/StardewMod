@@ -12,11 +12,20 @@ namespace CentralStorageInterface.Classes.Objects;
 
 public class Drive_Bay
 {
+    public struct HardDriveInfo
+    {
+        public int storageSpace { get; set; }
+        public int numBasic { get; set; }
+        public int numRare { get; set; }
+        public int numLegendary { get; set; }
+    }
 
-    public static int storageSpace { get; set; } = 10; //DEFAULT
-    public static int numBasic { get; set; } = 0; //DEFAULT
-    public static int numRare { get; set; } = 0; //DEFAULT
-    public static int numLegendary { get; set; } = 0; //DEFAULT
+    public static HardDriveInfo Info = new HardDriveInfo {
+        storageSpace = 10,
+        numBasic = 0,
+        numRare = 0,
+        numLegendary = 0
+    };
 
     public static int storageBasic { get; } = 10;
     public static int storageRare { get; } = 25;
@@ -28,7 +37,7 @@ public class Drive_Bay
         Drive_Bay_Menu testMenu = new Drive_Bay_Menu(monitor, helper, (int)center.X, (int)center.Y, 800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2, true);
         Game1.activeClickableMenu = testMenu;
 
-        Game1.addHUDMessage(new HUDMessage($"Drive Bay Opened: Storage {storageSpace}"));
+        Game1.addHUDMessage(new HUDMessage($"Drive Bay Opened: Storage {Info.storageSpace}"));
     }
 
     public static void DropInItem(Item dropInItem, bool probe)
@@ -36,16 +45,16 @@ public class Drive_Bay
         switch (dropInItem.Name)
             {
                 case "Basic Hard Drive":
-                    storageSpace += storageBasic;
-                    numBasic += 1;
+                    Info.storageSpace += storageBasic;
+                    Info.numBasic += 1;
                     break;
                 case "Rare Hard Drive":
-                    storageSpace += storageRare;
-                    numRare += 1;
+                    Info.storageSpace += storageRare;
+                    Info.numRare += 1;
                     break;
                 case "Legendary Hard Drive":
-                    storageSpace += storageLegendary;
-                    numLegendary += 1;
+                    Info.storageSpace += storageLegendary;
+                    Info.numLegendary += 1;
                     break;
                 default:
                     break;

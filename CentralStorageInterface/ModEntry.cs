@@ -47,18 +47,18 @@ internal sealed class ModEntry : Mod
         foreach (var obj in e.Added)
         {
             
-            Monitor.Log($"Inventory added {obj.Name}");
-            if (obj.Name == "Hard Drive")
-            {
-                // write a custom value
-                obj.modData[$"{this.ModManifest.UniqueID}/hard-drive-size"] = "99";
-                // read it
-                if (obj.modData.TryGetValue($"{this.ModManifest.UniqueID}/hard-drive-size", out string hardDriveSizeRaw))
-                {
-                    this.Monitor.Log($"{hardDriveSizeRaw}");
-                }
+            // Monitor.Log($"Inventory added {obj.Name}");
+            // if (obj.Name == "Hard Drive")
+            // {
+            //     // write a custom value
+            //     obj.modData[$"{this.ModManifest.UniqueID}/hard-drive-size"] = "99";
+            //     // read it
+            //     if (obj.modData.TryGetValue($"{this.ModManifest.UniqueID}/hard-drive-size", out string hardDriveSizeRaw))
+            //     {
+            //         this.Monitor.Log($"{hardDriveSizeRaw}");
+            //     }
 
-            }
+            // }
 
 
         }
@@ -70,6 +70,12 @@ internal sealed class ModEntry : Mod
         // Serialize Node Info
         string nodeJson = JsonSerializer.Serialize(Node_Handler.getNodeInfo());
         File.WriteAllText("node_list.json", nodeJson);
+
+        // Serialize Hard Drive Info
+        string driveBayInfoJson = JsonSerializer.Serialize(Drive_Bay.Info);
+        File.WriteAllText("hard_drive.json", driveBayInfoJson);
+
+
     }
     
     
@@ -90,29 +96,13 @@ internal sealed class ModEntry : Mod
             }
         
             Node_Handler.setNodeInfo(loadedNodes);
-        
-            // foreach (GameLocation location in Game1.locations)
-            // {
-            //     //Monitor.Log($"Bruh {location.Name}");
-            //     foreach (var furniture in location.furniture)
-            //     {
-            //         string? locationName = furniture.Location.ToString();
-            //         Vector2 tile = furniture.TileLocation;
-            //         string furnitureName = furniture.Name;
-
-                
-                
-            //         if (furniture.Name == "JaWoody.CPCentralStorageInterface_Node")
-            //         {
-            //             //Node_Handler.addNode(this.Monitor, tile, locationName);
-            //         }
-                    
-                
-            //     }
-            // }
-        
         }
-        
+
+        // Load driveBayInfo
+        string driveBayInfoLoad = File.ReadAllText("hard_drive.json");
+        this.Monitor.Log($"{driveBayInfoLoad}");
+        Drive_Bay.Info = JsonSerializer.Deserialize<Drive_Bay.HardDriveInfo>(driveBayInfoLoad);
+
                 
     }
 

@@ -74,9 +74,9 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
     {
 
         // On Creation Default Values
-        basic_third_rect.textTitle = $"Basic Drive Bays: {Drive_Bay.numBasic}";
-        rare_third_rect.textTitle = $"Rare Drive Bays: {Drive_Bay.numRare}";
-        legendary_third_rect.textTitle = $"Legendary Drive Bays: {Drive_Bay.numLegendary}";
+        basic_third_rect.textTitle = $"Basic Drive Bays: {Drive_Bay.Info.numBasic}";
+        rare_third_rect.textTitle = $"Rare Drive Bays: {Drive_Bay.Info.numRare}";
+        legendary_third_rect.textTitle = $"Legendary Drive Bays: {Drive_Bay.Info.numLegendary}";
 
 
         monitor.Log("Better Menu Constructed", LogLevel.Debug);
