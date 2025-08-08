@@ -19,6 +19,8 @@ public class Drive_Bay
     public static int numLegendary { get; set; } = 0; //DEFAULT
 
     public static int storageBasic { get; } = 10;
+    public static int storageRare { get; } = 25;
+    public static int storageLegendary { get; } = 50;
 
     public static void OpenInterface(SObject interfaceObject, IMonitor monitor, IModHelper helper)
     {
@@ -31,8 +33,23 @@ public class Drive_Bay
 
     public static void DropInItem(Item dropInItem, bool probe)
     {
-       storageSpace += storageBasic;
-       numBasic += 1;
+        switch (dropInItem.Name)
+            {
+                case "Basic Hard Drive":
+                    storageSpace += storageBasic;
+                    numBasic += 1;
+                    break;
+                case "Rare Hard Drive":
+                    storageSpace += storageRare;
+                    numRare += 1;
+                    break;
+                case "Legendary Hard Drive":
+                    storageSpace += storageLegendary;
+                    numLegendary += 1;
+                    break;
+                default:
+                    break;
+            }
     }
 
 }

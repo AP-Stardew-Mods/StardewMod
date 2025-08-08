@@ -135,9 +135,9 @@ internal sealed class ModEntry : Mod
                 Interface.OpenInterface(interfaceObject, this.Monitor, this.Helper);
             } else if (IsDriveBayOnTile(tile, out StardewValley.Object driveBayObject))
             {
-                if ((Game1.player.ActiveObject != null) && (Game1.player.ActiveObject.Name == "Basic Hard Drive"))
+                if ((Game1.player.ActiveObject != null) && (Game1.player.ActiveObject.Name.Contains("Hard Drive")))
                 {
-                    this.Monitor.Log("Click with Basic Hard Drive");
+                    this.Monitor.Log("Click with Hard Drive");
                     Drive_Bay.DropInItem(Game1.player.ActiveObject, true);
                 }
                 else
