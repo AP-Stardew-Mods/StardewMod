@@ -18,7 +18,7 @@ public class Drive_Bay
     public static int numRare { get; set; } = 0; //DEFAULT
     public static int numLegendary { get; set; } = 0; //DEFAULT
 
-
+    public static int storageBasic { get; } = 10;
 
     public static void OpenInterface(SObject interfaceObject, IMonitor monitor, IModHelper helper)
     {
@@ -29,9 +29,10 @@ public class Drive_Bay
         Game1.addHUDMessage(new HUDMessage($"Drive Bay Opened: Storage {storageSpace}"));
     }
 
-    public static void DropInItem(Item dropInItem, bool probe, Farmer who)
+    public static void DropInItem(Item dropInItem, bool probe)
     {
-
+       storageSpace += storageBasic;
+       numBasic += 1;
     }
 
 }

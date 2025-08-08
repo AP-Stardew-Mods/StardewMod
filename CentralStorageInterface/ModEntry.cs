@@ -138,6 +138,7 @@ internal sealed class ModEntry : Mod
                 if ((Game1.player.ActiveObject != null) && (Game1.player.ActiveObject.Name == "Basic Hard Drive"))
                 {
                     this.Monitor.Log("Click with Basic Hard Drive");
+                    Drive_Bay.DropInItem(Game1.player.ActiveObject, true);
                 }
                 else
                 {
