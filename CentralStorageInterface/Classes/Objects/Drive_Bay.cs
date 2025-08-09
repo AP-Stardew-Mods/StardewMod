@@ -31,13 +31,44 @@ public class Drive_Bay
     public static int storageRare { get; } = 25;
     public static int storageLegendary { get; } = 50;
 
-    public static void OpenInterface(SObject interfaceObject, IMonitor monitor, IModHelper helper)
+    // Helpers
+    public static IMonitor monitor { get; set; }
+    public static IModHelper helper { get; set; }
+
+    public static void OpenInterface(SObject interfaceObject)
     {
         Vector2 center = Utility.getTopLeftPositionForCenteringOnScreen(800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2);
         Drive_Bay_Menu testMenu = new Drive_Bay_Menu(monitor, helper, (int)center.X, (int)center.Y, 800 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2, true);
         Game1.activeClickableMenu = testMenu;
 
         Game1.addHUDMessage(new HUDMessage($"Drive Bay Opened: Storage {Info.storageSpace}"));
+    }
+
+    public static void Interact(StardewValley.Object interfaceObject, IMonitor passMonitor, IModHelper passHelper)
+    {
+        monitor = passMonitor;
+        helper = passHelper;
+
+        if ((Game1.player.ActiveObject != null) && (Game1.player.ActiveObject.Name.Contains("Hard Drive")))
+        {
+            monitor.Log("Click with Hard Drive");
+            Drive_Bay.DropInItem(Game1.player.ActiveObject, true);
+
+            StardewValley.Object heldItem = Game1.player.ActiveObject;
+
+            if (heldItem.Stack > 1)
+            {
+                Game1.player.ActiveObject.Stack -= 1;
+            }
+            else
+            {
+
+            }
+        }
+        else
+        {
+            Drive_Bay.OpenInterface(interfaceObject);
+        }
     }
 
     public static void DropInItem(Item dropInItem, bool probe)
