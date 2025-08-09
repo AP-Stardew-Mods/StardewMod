@@ -74,9 +74,9 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
     {
 
         // On Creation Default Values
-        basic_third_rect.textTitle = $"Basic Drive Bays: {Drive_Bay.Info.numBasic}";
-        rare_third_rect.textTitle = $"Rare Drive Bays: {Drive_Bay.Info.numRare}";
-        legendary_third_rect.textTitle = $"Legendary Drive Bays: {Drive_Bay.Info.numLegendary}";
+        basic_third_rect.textTitle = $"Basic Drives: {Drive_Bay.Info.numBasic}";
+        rare_third_rect.textTitle = $"Rare Drives: {Drive_Bay.Info.numRare}";
+        legendary_third_rect.textTitle = $"Legendary Drives: {Drive_Bay.Info.numLegendary}";
 
 
         monitor.Log("Better Menu Constructed", LogLevel.Debug);
@@ -133,9 +133,9 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
         // Default XNA Graphics Rectangle Basic
         b.Draw(Game1.staminaRect, new Rectangle(basic_third_rect.x, basic_third_rect.y, basic_third_rect.w, basic_third_rect.h), Color.Black);
         // Default XNA Graphics Rectangle Rare
-        b.Draw(Game1.staminaRect, new Rectangle(rare_third_rect.x, rare_third_rect.y, rare_third_rect.w, rare_third_rect.h), Color.White);
+        b.Draw(Game1.staminaRect, new Rectangle(rare_third_rect.x, rare_third_rect.y, rare_third_rect.w, rare_third_rect.h), Color.Black);
 
-        b.Draw(Game1.staminaRect, new Rectangle(legendary_third_rect.x, legendary_third_rect.y, legendary_third_rect.w, legendary_third_rect.h), Color.Red);
+        b.Draw(Game1.staminaRect, new Rectangle(legendary_third_rect.x, legendary_third_rect.y, legendary_third_rect.w, legendary_third_rect.h), Color.Black);
         // Drawing an Item frame to fit the Default rectangle
         int hor_scale = 0;
         int vert_scale = 0;
@@ -145,11 +145,11 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
 
         // Custom text in boxes
         // Text for Basic Hard Drives
-        drawCustomText(basic_third_rect.textTitle, 0f, Color.Blue, Color.Blue, 0, 0, basic_third_rect, "left_align");
+        drawCustomText(basic_third_rect.textTitle, 0f, Color.White, Color.Gray, 3, 3, basic_third_rect, "left_align");
         // Text for Rare Hard Drives
-        drawCustomText(rare_third_rect.textTitle, 0f, Color.Blue, Color.Blue, 0, 0, rare_third_rect, "left_align");
+        drawCustomText(rare_third_rect.textTitle, 0f, Color.White, Color.Gray, 3, 3, rare_third_rect, "left_align");
         // Text for Legendary Hard Drives
-        drawCustomText(legendary_third_rect.textTitle, 0f, Color.Blue, Color.Blue, 0, 0, legendary_third_rect, "left_align");
+        drawCustomText(legendary_third_rect.textTitle, 0f, Color.White, Color.Gray, 3, 3, legendary_third_rect, "left_align");
 
         // Draw Mouse
         this.drawMouse(b);
@@ -185,12 +185,24 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
         Vector2 titlePosition = new Vector2(
             customRect.x + alignX,
             customRect.y);
-        
+
+        Game1.spriteBatch.DrawString(
+            Game1.dialogueFont,
+            title,
+            titlePosition,
+            titleColor,
+            0f,
+            Vector2.Zero,
+            scale,
+            SpriteEffects.None,
+            0.86f
+        );
+
         Game1.spriteBatch.DrawString(
             Game1.dialogueFont,
             title,
             titlePosition + new Vector2(offsetX, offsetY),
-            titleColor,
+            titleShadowColor,
             0f,
             Vector2.Zero,
             scale,
