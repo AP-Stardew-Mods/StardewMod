@@ -47,18 +47,18 @@ internal sealed class ModEntry : Mod
         foreach (var obj in e.Added)
         {
             
-            Monitor.Log($"Inventory added {obj.Name}");
-            if (obj.Name == "Hard Drive")
-            {
-                // write a custom value
-                obj.modData[$"{this.ModManifest.UniqueID}/hard-drive-size"] = "99";
-                // read it
-                if (obj.modData.TryGetValue($"{this.ModManifest.UniqueID}/hard-drive-size", out string hardDriveSizeRaw))
-                {
-                    this.Monitor.Log($"{hardDriveSizeRaw}");
-                }
+            // Monitor.Log($"Inventory added {obj.Name}");
+            // if (obj.Name == "Hard Drive")
+            // {
+            //     // write a custom value
+            //     obj.modData[$"{this.ModManifest.UniqueID}/hard-drive-size"] = "99";
+            //     // read it
+            //     if (obj.modData.TryGetValue($"{this.ModManifest.UniqueID}/hard-drive-size", out string hardDriveSizeRaw))
+            //     {
+            //         this.Monitor.Log($"{hardDriveSizeRaw}");
+            //     }
 
-            }
+            // }
 
 
         }
@@ -67,11 +67,15 @@ internal sealed class ModEntry : Mod
     
     private void Saving(object? sender, SavingEventArgs e)
     {
-        // Serialize
-        string json = JsonSerializer.Serialize(Node_Handler.getNodeInfo());
-        this.Monitor.Log($"{json}");
-        File.WriteAllText("node_list.json", json);
-        
+        // Serialize Node Info
+        string nodeJson = JsonSerializer.Serialize(Node_Handler.getNodeInfo());
+        File.WriteAllText("node_list.json", nodeJson);
+
+        // Serialize Hard Drive Info
+        string driveBayInfoJson = JsonSerializer.Serialize(Drive_Bay.Info);
+        File.WriteAllText("hard_drive.json", driveBayInfoJson);
+
+
     }
     
     
@@ -92,29 +96,13 @@ internal sealed class ModEntry : Mod
             }
         
             Node_Handler.setNodeInfo(loadedNodes);
-        
-            // foreach (GameLocation location in Game1.locations)
-            // {
-            //     //Monitor.Log($"Bruh {location.Name}");
-            //     foreach (var furniture in location.furniture)
-            //     {
-            //         string? locationName = furniture.Location.ToString();
-            //         Vector2 tile = furniture.TileLocation;
-            //         string furnitureName = furniture.Name;
-
-                
-                
-            //         if (furniture.Name == "JaWoody.CPCentralStorageInterface_Node")
-            //         {
-            //             //Node_Handler.addNode(this.Monitor, tile, locationName);
-            //         }
-                    
-                
-            //     }
-            // }
-        
         }
-        
+
+        // Load driveBayInfo
+        string driveBayInfoLoad = File.ReadAllText("hard_drive.json");
+        this.Monitor.Log($"{driveBayInfoLoad}");
+        Drive_Bay.Info = JsonSerializer.Deserialize<Drive_Bay.HardDriveInfo>(driveBayInfoLoad);
+
                 
     }
 
@@ -135,8 +123,9 @@ internal sealed class ModEntry : Mod
             {
                 this.Monitor.Log("Terminal", LogLevel.Debug);
                 Interface.OpenInterface(interfaceObject, this.Monitor, this.Helper);
-                // Test Item Handler;
-                //Item_Handler itemHandler = new Item_Handler(this.Monitor);
+            } else if (IsDriveBayOnTile(tile, out StardewValley.Object driveBayObject))
+            {
+               Drive_Bay.Interact(interfaceObject, this.Monitor, this.Helper);
             }
 
         }
@@ -149,6 +138,12 @@ internal sealed class ModEntry : Mod
               (Game1.currentLocation.objects.TryGetValue(tile + new Vector2(0, 1), out interfaceObject) && interfaceObject.Name == "Central Interface");
     }
 
+    private bool IsDriveBayOnTile(Vector2 tile, out StardewValley.Object driveBayObject)
+    {
+        return (Game1.currentLocation.objects.TryGetValue(tile, out driveBayObject) && driveBayObject.Name == "Drive Bay") ||
+              (Game1.currentLocation.objects.TryGetValue(tile + new Vector2(0, 1), out driveBayObject) && driveBayObject.Name == "Drive Bay");
+    }
+    
     private void FurnitureListChanged(object? sender, FurnitureListChangedEventArgs e)
     {
 

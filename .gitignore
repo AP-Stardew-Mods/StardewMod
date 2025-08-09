@@ -8,3 +8,6 @@
 [Bb]in/
 [Oo]bj/
 _releases/
+
+*~
+*#

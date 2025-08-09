@@ -1,0 +1,52 @@
+{
+    "Changes": [
+        {
+            "Action": "EditData",
+            "Target": "Data/Objects",
+            "Entries": {
+                "Jawoody.CentralStorageInterfaceCP_Basic_Hard_Drive": {
+                    "Name": "Basic Hard Drive",
+                    "Displayname": "{{i18n:objects.basic-hard-drive.name}}",
+                    "Description": "{{i18n:objects.basic-hard-drive.description}}",
+                    "Texture": "Mods/Jawoody.CentralStorageInterfaceCP/Basic Hard Drive",
+                    "Spriteindex": 0
+                },
+                "Jawoody.CentralStorageInterfaceCP_Rare_Hard_Drive": {
+                    "Name": "Rare Hard Drive",
+                    "Displayname": "{{i18n:objects.rare-hard-drive.name}}",
+                    "Description": "{{i18n:objects.rare-hard-drive.description}}",
+                    "Texture": "Mods/Jawoody.CentralStorageInterfaceCP/Rare Hard Drive",
+                    "Spriteindex": 0
+                },
+                "Jawoody.CentralStorageInterfaceCP_Legendary_Hard_Drive": {
+                    "Name": "Legendary Hard Drive",
+                    "Displayname": "{{i18n:objects.legendary-hard-drive.name}}",
+                    "Description": "{{i18n:objects.legendary-hard-drive.description}}",
+                    "Texture": "Mods/Jawoody.CentralStorageInterfaceCP/Legendary Hard Drive",
+                    "Spriteindex": 0
+                }
+
+            }
+
+            
+        },
+
+        {
+            "Action": "Load",
+            "Target": "Mods/Jawoody.CentralStorageInterfaceCP/Basic Hard Drive",
+            "FromFile": "assets/items/Objects/Basic_Hard_Drive.png"
+        },
+        {
+            "Action": "Load",
+            "Target": "Mods/Jawoody.CentralStorageInterfaceCP/Rare Hard Drive",
+            "FromFile": "assets/items/Objects/Rare_Hard_Drive.png"
+        },
+        {
+            "Action": "Load",
+            "Target": "Mods/Jawoody.CentralStorageInterfaceCP/Legendary Hard Drive",
+            "FromFile": "assets/items/Objects/Legendary_Hard_Drive.png"
+        }
+
+    ]
+
+}
