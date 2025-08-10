@@ -9,6 +9,8 @@ using StardewValley.Menus;
 using SObject = StardewValley.Object;
 using CentralStorageInterface.Classes.Handlers;
 
+#nullable enable
+
 namespace CentralStorageInterface.Classes.Objects;
 
 public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
@@ -16,11 +18,11 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
 
     public ClickableTextureComponent trashCan;
     public InventoryMenu inventory;
-    private ClickableTextureComponent upArrow;
-    private ClickableTextureComponent downArrow;
+    // private ClickableTextureComponent upArrow;
+    // private ClickableTextureComponent downArrow;
 
-    private ClickableTextureComponent basicUpArrow;
-    private ClickableTextureComponent basicDownArrow;
+    // private ClickableTextureComponent basicUpArrow;
+    // private ClickableTextureComponent basicDownArrow;
     
     public float _updateTimer;
 
@@ -102,8 +104,8 @@ public class Drive_Bay_Menu : StardewValley.Menus.IClickableMenu
         // Item Frame Init
         this.itemFrame = helper.ModContent.Load<Texture2D>("assets/menu/item_frame.png");
 
-        basicUpArrow = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen, 44, 48), Game1.mouseCursors, new Rectangle(421, 459, 11, 12), 4f);
-        basicDownArrow = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen + width + 16, this.yPositionOnScreen + height - 64, 44, 48), Game1.mouseCursors, new Rectangle(421, 472, 11, 12), 4f);
+        // basicUpArrow = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen, 44, 48), Game1.mouseCursors, new Rectangle(421, 459, 11, 12), 4f);
+        // basicDownArrow = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen + width + 16, this.yPositionOnScreen + height - 64, 44, 48), Game1.mouseCursors, new Rectangle(421, 472, 11, 12), 4f);
     }
 
 

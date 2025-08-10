@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <BaseOutputPath>/mnt/code/code/git/C#/StardewMod/CentralStorageInterface/CentralStorageInterface/</BaseOutputPath>
     <Gamepath>/mnt/games/SteamLibrary/steamapps/common/Stardew Valley/</Gamepath>
   </PropertyGroup>
