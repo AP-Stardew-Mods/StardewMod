@@ -11,6 +11,8 @@ using CentralStorageInterface.Classes.Handlers;
 // For serializable info
 using System.Text.Json;
 
+#nullable enable
+
 namespace CentralStorageInterface;
 
 
@@ -99,11 +101,15 @@ internal sealed class ModEntry : Mod
         }
 
         // Load driveBayInfo
-        string driveBayInfoLoad = File.ReadAllText("hard_drive.json");
-        this.Monitor.Log($"{driveBayInfoLoad}");
-        Drive_Bay.Info = JsonSerializer.Deserialize<Drive_Bay.HardDriveInfo>(driveBayInfoLoad);
 
-                
+        if (File.Exists("hard_drive.json"))
+        {
+            string driveBayInfoLoad = File.ReadAllText("hard_drive.json");
+            this.Monitor.Log($"{driveBayInfoLoad}");
+            Drive_Bay.Info = JsonSerializer.Deserialize<Drive_Bay.HardDriveInfo>(driveBayInfoLoad);
+        }
+
+
     }
 
 
