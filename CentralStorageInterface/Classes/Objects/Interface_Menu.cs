@@ -57,11 +57,12 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
     
     
     // Number of Boxes
-    public int tempBoxCount = 20;
+    public int tempBoxCount = 75;
     public int horBoxCount;
     public int vertBoxCount;
 
-    
+    private List<ClickableTextureComponent> tabs;
+    private int selectedTab;
     
     public Interface_Menu(IMonitor monitor, IModHelper helper, int x, int y, int width, int height, bool showUpperRightCloseButton = false) : base()
     {
@@ -83,9 +84,15 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         );
         
         monitor.Log($"{mid_third_rect.w}", LogLevel.Debug);
- 
+
+
+        calculateTextureValues();
+
         // Item Frame Init
         this.itemFrame = helper.ModContent.Load<Texture2D>("assets/menu/item_frame.png");
+
+        // tabs = new ClickableTextureComponent("Tab1", new Rectangle(bgClick.x + 20, bgClick.y - 64, 64, 64), null, null, Game1.mouseCursors, new Rectangle(16, 368, 16, 16), 4f);
+
     }
 
 
@@ -116,9 +123,9 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         // Stardew Default Clickable Brown Texture with border
         IClickableMenu.drawTextureBox(b, bgClick.x, bgClick.y, bgClick.w, bgClick.h, Color.White);
         // Default XNA Graphics Rectangle Mid
-        b.Draw(Game1.staminaRect, new Rectangle(mid_third_rect.x, mid_third_rect.y, mid_third_rect.w, mid_third_rect.h), Color.Black);
+        // b.Draw(Game1.staminaRect, new Rectangle(mid_third_rect.x, mid_third_rect.y, mid_third_rect.w, mid_third_rect.h), Color.Black);
         // Default XNA Graphics Rectangle Left
-        b.Draw(Game1.staminaRect, new Rectangle(l_third_rect.x, l_third_rect.y, l_third_rect.w, l_third_rect.h), Color.White);
+        // b.Draw(Game1.staminaRect, new Rectangle(l_third_rect.x, l_third_rect.y, l_third_rect.w, l_third_rect.h), Color.White);
         // Drawing an Item frame to fit the Default rectangle
         int hor_scale = 0;
         int vert_scale = 0;
@@ -145,10 +152,10 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
         //drawCustomText("This is a super long message to test the scaling", 0f, Color.Red, Color.Pink, 0, 0, l_third_rect, "center");
 
         // Drawing number of nodes
-        drawCustomText($"Number of Nodes {Node_Handler.getNumNodes()}", 0f, Color.Red, Color.Pink, 0, 0, l_third_rect, "center");
+        // drawCustomText($"Number of Nodes {Node_Handler.getNumNodes()}", 0f, Color.Red, Color.Pink, 0, 0, l_third_rect, "center");
 
         // Draw node info
-        drawNodeRows();
+        // drawNodeRows();
     }
 
     public void drawNodeRows()
@@ -221,29 +228,36 @@ public class Interface_Menu : StardewValley.Menus.IClickableMenu
     public void calculateTextureValues()
     {
         // Alias
-        vX = Game1.viewport.X;
-        vY = Game1.viewport.Y;
-        vW = Game1.viewport.Width;
-        vH = Game1.viewport.Height;
+        vX = 0;
+        vY = 0;
+        vW = 0;
+        vH = 0;
 
         // bgClick
-        bgClick.x = 0;
-        bgClick.y = 0;
-        bgClick.w = vW;
-        bgClick.h = vH;
+        bgClick.x = 50;
+        bgClick.y = 50;
+        bgClick.w = 1000;
+        bgClick.h = 700;
 
         // bgText
         bgText.x = bgClick.x + 12;
         bgText.y = bgClick.y + 12;
         bgText.w = bgClick.w - 24;
         bgText.h = bgClick.h - 24;
-        
-        // mid_third_rect
-        mid_third_rect.x = (bgText.w - ((bgText.w / 2 / 64) * 64)) / 2;
+
+         // mid_third_rect
+        mid_third_rect.x = bgText.x;
         mid_third_rect.y = bgText.y;
         mid_third_rect.w = (bgText.w / 2 / 64) * 64;;
         mid_third_rect.h = bgText.h;
-        
+
+
+        // mid_third_rect
+        // mid_third_rect.x = (bgText.w - ((bgText.w / 2 / 64) * 64)) / 2;
+        // mid_third_rect.y = bgText.y;
+        // mid_third_rect.w = (bgText.w / 2 / 64) * 64;;
+        // mid_third_rect.h = bgText.h;
+
         // left_third_rect
         l_third_rect.x = bgText.x;
         l_third_rect.y = bgText.y;
