@@ -1,0 +1,45 @@
+{
+    "Changes": [
+        {
+            "Action": "EditData",
+            "Target": "Data/BigCraftables",
+            "Entries": {
+                "Jawoody.CentralStorageInterfaceCP_Central_Interface": {
+                    "Name": "Central Interface",
+                    "DisplayName": "{{i18n:big-craftables.central-interface.name}}",
+                    "Description": "{{i18n:big-craftables.central-interface.description}}",
+                    "Price": 250,
+                    "CanBePlacedOutdoors": true,
+                    "CanBePlacedIndoors": true,
+                    "Texture": "Mods\\Jawoody.CentralStorageInterfaceCP\\Central Interface",
+                    "SpriteIndex": 0
+                },
+
+                "JaWoody.CentralStorageInterfaceCP_Drive_Bay": {
+                    "Name": "Drive Bay",
+                    "DisplayName": "{{i18n:big-craftables.drive-bay.name}}",
+                    "Description": "{{i18n:big-craftables.drive-bay.description}}",
+                    "Price": 250,
+                    "CanBePlacedOutdoors": true,
+                    "CanBePlacedIndoors": true,
+                    "Texture": "Mods\\Jawoody.CentralStorageInterfaceCP\\Drive Bay",
+                    "SpriteIndex": 0
+                }
+            }
+        },
+
+        
+        {
+            "Action": "Load",
+            "Target": "Mods/Jawoody.CentralStorageInterfaceCP/Central Interface",
+            "FromFile": "assets/items/BigCraftables/Central Interface.png"
+        },
+
+        {
+            "Action": "Load",
+            "Target": "Mods/Jawoody.CentralStorageInterfaceCP/Drive Bay",
+            "FromFile": "assets/items/BigCraftables/Drive Bay.png"
+        }
+
+    ]
+}

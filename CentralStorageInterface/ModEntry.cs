@@ -4,59 +4,215 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
+using StardewValley.Menus;
+using CentralStorageInterface.Classes.Objects;
+using CentralStorageInterface.Classes.Handlers;
+
+// For serializable info
+using System.Text.Json;
+
+#nullable enable
 
 namespace CentralStorageInterface;
 
-public class ModEntry : Mod
+
+internal sealed class ModEntry : Mod
+    
 {
 
-    
 
-
-    internal static IMonitor ModMonitor { get; set; }
-    internal new static IModHelper Helper { get; set; }
-
-    internal static ModConfig Config;
     /*********
-    ** Public methods
-    *********/
+     ** Public methods
+     *********/
     /// <summary>The mod entry point, called after the mod is first loaded.</summary>
     /// <param name="helper">Provides simplified APIs for writing mods.</param>
     public override void Entry(IModHelper helper)
     {
 
-
         //helper.Events.Content.AssetRequested += this.OnAssetRequested;
         helper.Events.Input.ButtonPressed += this.OnButtonPressed;
-        helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
 
-        CentralInterface.Initialize(this);
+        // Helper for object list change. Example placing an object
+        helper.Events.World.ObjectListChanged += ObjectListChanged;
 
+        helper.Events.World.FurnitureListChanged += FurnitureListChanged;
+
+        helper.Events.GameLoop.SaveLoaded += SaveLoaded;
+
+        helper.Events.GameLoop.Saving += Saving;
+
+        helper.Events.Player.InventoryChanged += InventoryChanged;
     }
 
-    // Private methods
-    private void OnAssetRequested()
+    private void InventoryChanged(object? sender, InventoryChangedEventArgs e)
+    {
+        foreach (var obj in e.Added)
+        {
+            
+            // Monitor.Log($"Inventory added {obj.Name}");
+            // if (obj.Name == "Hard Drive")
+            // {
+            //     // write a custom value
+            //     obj.modData[$"{this.ModManifest.UniqueID}/hard-drive-size"] = "99";
+            //     // read it
+            //     if (obj.modData.TryGetValue($"{this.ModManifest.UniqueID}/hard-drive-size", out string hardDriveSizeRaw))
+            //     {
+            //         this.Monitor.Log($"{hardDriveSizeRaw}");
+            //     }
+
+            // }
+
+
+        }
+
+    }
+    
+    private void Saving(object? sender, SavingEventArgs e)
+    {
+        // Serialize Node Info
+        string nodeJson = JsonSerializer.Serialize(Node_Handler.getNodeInfo());
+        File.WriteAllText("node_list.json", nodeJson);
+
+        // Serialize Hard Drive Info
+        string driveBayInfoJson = JsonSerializer.Serialize(Drive_Bay.Info);
+        File.WriteAllText("hard_drive.json", driveBayInfoJson);
+
+
+    }
+    
+    
+    // Only using this to add existing nodes to node list on save loaded
+    private void SaveLoaded(object? sender, SaveLoadedEventArgs e)
     {
 
+        string json = File.ReadAllText("node_list.json");
+
+        this.Monitor.Log($"{json}");
+        List<Node_Handler.NodeInfo>? loadedNodes = JsonSerializer.Deserialize<List<Node_Handler.NodeInfo>>(json);
+
+        if (loadedNodes != null)
+        {
+            foreach (var node in loadedNodes)
+            {
+                this.Monitor.Log($"Loaded NODES: {node.Tile_x} {node.Tile_y} {node.LocationName}");
+            }
+        
+            Node_Handler.setNodeInfo(loadedNodes);
+        }
+
+        // Load driveBayInfo
+
+        if (File.Exists("hard_drive.json"))
+        {
+            string driveBayInfoLoad = File.ReadAllText("hard_drive.json");
+            this.Monitor.Log($"{driveBayInfoLoad}");
+            Drive_Bay.Info = JsonSerializer.Deserialize<Drive_Bay.HardDriveInfo>(driveBayInfoLoad);
+        }
+
+
     }
 
-    private void OnButtonPressed(object? sender, ButtonPressedEventArgs e) 
+
+    private void OnButtonPressed(object? sender, ButtonPressedEventArgs e)
     {
         // Ignore if player hasn't loaded a save yet
         if (!Context.IsWorldReady)
             return;
-
         // Print button presses to console
         this.Monitor.Log($"{Game1.player.Name} pressed {e.Button}.", LogLevel.Debug);
-    }
 
-    private void OnSaveLoaded(object? sender, EventArgs e)
-    {
-        foreach(IContentPack contentPack in this.Helper.ContentPacks.GetOwned())
+        if (e.Button.IsActionButton())
         {
-            this.Monitor.Log($"Reading content pack: {contentPack.Manifest.Name} {contentPack.Manifest.Version} from {contentPack.DirectoryPath}");
+            Vector2 tile = e.Cursor.Tile;
+
+            if (IsInterfaceOnTile(tile, out StardewValley.Object interfaceObject))
+            {
+                this.Monitor.Log("Terminal", LogLevel.Debug);
+                Interface.OpenInterface(interfaceObject, this.Monitor, this.Helper);
+            } else if (IsDriveBayOnTile(tile, out StardewValley.Object driveBayObject))
+            {
+               Drive_Bay.Interact(interfaceObject, this.Monitor, this.Helper);
+            }
+
         }
     }
- 
+
+    // Credit: UltimateStorage System
+    private bool IsInterfaceOnTile(Vector2 tile, out StardewValley.Object interfaceObject)
+    {
+        return (Game1.currentLocation.objects.TryGetValue(tile, out interfaceObject) && interfaceObject.Name == "Central Interface") ||
+              (Game1.currentLocation.objects.TryGetValue(tile + new Vector2(0, 1), out interfaceObject) && interfaceObject.Name == "Central Interface");
+    }
+
+    private bool IsDriveBayOnTile(Vector2 tile, out StardewValley.Object driveBayObject)
+    {
+        return (Game1.currentLocation.objects.TryGetValue(tile, out driveBayObject) && driveBayObject.Name == "Drive Bay") ||
+              (Game1.currentLocation.objects.TryGetValue(tile + new Vector2(0, 1), out driveBayObject) && driveBayObject.Name == "Drive Bay");
+    }
+    
+    private void FurnitureListChanged(object? sender, FurnitureListChangedEventArgs e)
+    {
+
+        Monitor.Log($"Placed furniture at {e.Location}");
+
+        foreach (var obj in e.Added)
+        {
+            
+            StardewValley.Object furniture = obj;
+            string? locationName = furniture.Location.ToString();
+            Vector2 tile = furniture.TileLocation;
+
+
+        
+            if (furniture.Name == "JaWoody.CPCentralStorageInterface_Node")
+            {
+                Node_Handler.addNode(this.Monitor, tile, locationName);
+            }
+        }
+
+
+        foreach (var obj in e.Removed)
+        {
+
+            StardewValley.Object furniture = obj;
+            string? locationName = furniture.Location.ToString();
+            Vector2 tile = furniture.TileLocation;
+
+        
+            if (furniture.Name == "JaWoody.CPCentralStorageInterface_Node")
+            {
+                Node_Handler.removeNode(this.Monitor, tile, locationName);
+            }
+        }
+    }
+
+        
+
+         
+    private void ObjectListChanged(object? sender, ObjectListChangedEventArgs e)
+    {
+        Monitor.Log($"Placed object at {e.Location}");
+
+        foreach (var pair in e.Added)
+        {
+            Vector2 tile = pair.Key;
+            StardewValley.Object obj = pair.Value;
+
+            Monitor.Log($"Changed object {obj.Name}");
+
+
+            
+
+            // THIS DOESNT DO ANYTHING
+            if (obj.name == "Central Interface")
+            {
+                // THIS DOESN'T DO ANYTHING RIGHT NOW
+                Interface testobj = new Interface(obj.name, tile);
+            }
+
+
+        }
+
+    }
 
 }

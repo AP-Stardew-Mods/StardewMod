@@ -1,0 +1,14 @@
+{
+    "big-craftables.central-interface.name": "Central Interface",
+    "big-craftables.central-interface.description": "The main interface for viewing your farm's connected inventory storage.",
+    "big-craftables.drive-bay.name": "Drive Bay",
+    "big-craftables.drive-bay.description": "Place Drives in Me!",
+    "objects.node.name": "Node",
+    "objects.node.description": "A node that can be connected to a network.",
+    "objects.basic-hard-drive.name": "Basic Hard Drive",
+    "objects.basic-hard-drive.description": "Stores Stuff idk",
+    "objects.rare-hard-drive.name": "Rare Hard Drive",
+    "objects.rare-hard-drive.description": "Stores Stuff idk",
+    "objects.legendary-hard-drive.name": "Legendary Hard Drive",
+    "objects.legendary-hard-drive.description": "Stores Stuff idk"
+}

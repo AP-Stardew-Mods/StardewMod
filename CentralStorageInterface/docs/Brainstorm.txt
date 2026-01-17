@@ -1,0 +1,13 @@
+Feature: Init Machines on Nodes on Interface
+Feature: Setup Nodes to Integrate with Machines
+Feature: Set Up Machine List in Interface
+Feature: Implement Full Mod Framework
+-> Custom Saving .txt? .json?
+-> Abstract code for building blocks
+Feature: Integrate chests with nodes
+-> Read chest contents
+-> Retrieve chest contents
+Feature: Create "Drive Storage"
+-> Create Drive Bay BigCraftable
+-> Design art for BigCraftable
+-> Create Hard Drive
